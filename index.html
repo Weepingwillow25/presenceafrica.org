@@ -390,7 +390,7 @@
               </div>
 
               <p class="text-sm text-[#5B6472] leading-relaxed mb-6">
-                Log perpetrator usernames, original URLs, exact timestamps, and screenshot notes. Generate an encrypted, exportable summary formatted for FIDA Kenya, the Cybercrime Desk, or legal counsel.
+                Log screenshots or videos, original URLs, exact timestamps, and notes. Generate an encrypted, exportable summary formatted for FIDA Kenya, the Cybercrime Desk, or legal counsel.
               </p>
 
               <div class="space-y-3 mb-8 text-xs sm:text-sm text-[#111417]">
@@ -404,7 +404,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                   <i data-lucide="check-circle-2" class="w-4 h-4 text-[#1FA96B] shrink-0"></i>
-                  <span>Exportable text dossier & PDF-ready formatting</span>
+                  <span>Direct screenshot and video evidence attachment</span>
                 </div>
               </div>
             </div>
@@ -626,11 +626,17 @@
 
       <div class="space-y-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Perpetrator Handle / Phone</label>
-            <input id="evHandle" type="text" placeholder="@username or +254..." class="w-full bg-[#F4F6F9] text-sm p-3 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#123354]" />
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Add screenshot or upload video</label>
+            <div class="flex items-center gap-2">
+              <label class="flex-1 bg-[#F4F6F9] hover:bg-[#E8EEF5] text-xs sm:text-sm rounded-xl p-3 border border-dashed border-[rgba(17,20,23,0.20)] flex items-center justify-between cursor-pointer transition">
+                <span id="evFileLabel" class="text-[#5B6472] truncate">Choose screenshot or video evidence file...</span>
+                <span class="bg-[#123354] text-white text-[11px] font-bold px-3 py-1 rounded-lg shrink-0">Browse File</span>
+                <input id="evFileInput" type="file" accept="image/*,video/*" class="hidden" onchange="handleEvidenceFileSelect(this)" />
+              </label>
+            </div>
           </div>
-          <div>
+          <div class="sm:col-span-2">
             <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Platform</label>
             <select id="evPlatform" class="w-full bg-[#F4F6F9] text-sm p-3 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#123354]">
               <option>X (Twitter)</option>
@@ -883,13 +889,22 @@
       document.getElementById(id).classList.add('hidden');
     }
 
+    let attachedEvidenceFileName = 'None';
+
+    function handleEvidenceFileSelect(input) {
+      if (input.files && input.files[0]) {
+        attachedEvidenceFileName = input.files[0].name;
+        document.getElementById('evFileLabel').innerText = 'Attached: ' + attachedEvidenceFileName;
+        document.getElementById('evFileLabel').classList.add('text-[#123354]', 'font-semibold');
+      }
+    }
+
     function generateEvidenceDossier() {
-      const handle = document.getElementById('evHandle').value || 'Unknown';
       const platform = document.getElementById('evPlatform').value;
       const desc = document.getElementById('evDescription').value || 'No details provided';
       const date = new Date().toISOString();
 
-      const dossier = `=== PRESENCE DIGITAL SAFETY INCIDENT DOSSIER ===\nTimestamp (UTC): ${date}\nPerpetrator: ${handle}\nPlatform: ${platform}\nStatutory Reference: Kenya Computer Misuse and Cybercrimes Act (CMCA) Sec 27 & 28\n\nIncident Notes:\n${desc}\n\nPreserved via Presence Africa Digital Safety Platform.`;
+      const dossier = `=== PRESENCE DIGITAL SAFETY INCIDENT DOSSIER ===\nTimestamp (UTC): ${date}\nPlatform: ${platform}\nAttached Screenshot / Video Evidence: ${attachedEvidenceFileName}\nStatutory Reference: Kenya Computer Misuse and Cybercrimes Act (CMCA) Sec 27 & 28\n\nIncident Notes:\n${desc}\n\nPreserved via Presence Africa Digital Safety Platform.`;
       
       const blob = new Blob([dossier], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
