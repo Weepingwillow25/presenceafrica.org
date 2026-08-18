@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Presence — Online Safety for All</title>
+  <title>Presence — Online Safety & Digital Harm Defense</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,6 +31,28 @@
               accent: '#153A60',
               blue: '#2EA0E6',
               cyan: '#38BDF8',
+              sunGold: '#FBBF24',
+              coral: '#FB7185',
+              violet: '#A78BFA',
+            }
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-delayed': 'float 6s ease-in-out 3s infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'shimmer': 'shimmer 2.5s infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+            },
+            shimmer: {
+              '100%': { transform: 'translateX(100%)' }
             }
           }
         }
@@ -42,7 +64,18 @@
       background-color: #0A1A2F;
       color: #F1F5F9;
       font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
     }
+    
+    /* Background Ambient Gradients */
+    .bg-mesh {
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(46, 160, 230, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(251, 113, 133, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(167, 139, 250, 0.10) 0px, transparent 50%);
+    }
+
+    /* Custom Scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -54,81 +87,177 @@
       background: #1E4E7A;
       border-radius: 9999px;
     }
+
+    /* Animated Card Hover */
+    .interactive-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .interactive-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px -8px rgba(46, 160, 230, 0.25);
+      border-color: rgba(56, 189, 248, 0.6);
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-[#2EA0E6]/30 selection:text-white">
+<body class="min-h-screen flex flex-col bg-mesh selection:bg-[#2EA0E6]/30 selection:text-white">
 
-  <!-- HEADER -->
-  <header class="sticky top-0 z-40 bg-[#0E253F]/95 backdrop-blur-md border-b border-[#38BDF8]/20 shadow-md">
+  <!-- TOP HEADER WITH GLOW -->
+  <header class="sticky top-0 z-40 bg-[#0E253F]/90 backdrop-blur-md border-b border-[#38BDF8]/20 shadow-xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- LOGO (Exact Vector Match for Presence) -->
-      <div class="flex items-center gap-3 cursor-pointer select-none" onclick="switchTab('lexicon')">
-        <div class="w-10 h-10 flex items-center justify-center shrink-0">
-          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-            <path d="M 28 78 L 28 42 A 26 26 0 0 1 80 42 A 26 26 0 0 1 54 68 L 48 68" stroke="#2196F3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 34.5 78 L 34.5 48" stroke="#2196F3" stroke-width="4" stroke-linecap="round"/>
-            <path d="M 41 78 L 41 40" stroke="#2196F3" stroke-width="4" stroke-linecap="round"/>
-            <path d="M 47.5 78 L 47.5 44 A 12 12 0 0 1 60 38" stroke="#2196F3" stroke-width="4" stroke-linecap="round"/>
-            <path d="M 56 32 A 18 18 0 0 1 72 44 A 18 18 0 0 1 54 58" stroke="#2196F3" stroke-width="4" stroke-linecap="round"/>
+      <!-- LOGO -->
+      <div class="flex items-center gap-3 cursor-pointer select-none group" onclick="switchTab('lexicon')">
+        <div class="w-11 h-11 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_0_12px_rgba(33,150,243,0.6)]">
+            <path d="M 28 78 L 28 42 A 26 26 0 0 1 80 42 A 26 26 0 0 1 54 68 L 48 68" stroke="#2196F3" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 34.5 78 L 34.5 48" stroke="#2196F3" stroke-width="4.2" stroke-linecap="round"/>
+            <path d="M 41 78 L 41 40" stroke="#2196F3" stroke-width="4.2" stroke-linecap="round"/>
+            <path d="M 47.5 78 L 47.5 44 A 12 12 0 0 1 60 38" stroke="#2196F3" stroke-width="4.2" stroke-linecap="round"/>
+            <path d="M 56 32 A 18 18 0 0 1 72 44 A 18 18 0 0 1 54 58" stroke="#2196F3" stroke-width="4.2" stroke-linecap="round"/>
           </svg>
         </div>
-        <span class="font-radley text-2xl font-bold tracking-tight text-white">Presence</span>
+        <div>
+          <span class="font-radley text-2xl font-bold tracking-tight text-white block leading-none">Presence</span>
+          <span class="text-[10px] tracking-[0.2em] font-mono text-[#38BDF8] uppercase font-semibold">Online Safety for All</span>
+        </div>
       </div>
 
-      <!-- QUICK HELPLINE BUTTON -->
-      <button onclick="toggleHelplineModal(true)" class="flex items-center gap-2 bg-[#153A60] hover:bg-[#1E4E7A] text-[#38BDF8] border border-[#38BDF8]/40 px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm">
-        <i data-lucide="phone-call" class="w-4 h-4 text-[#38BDF8]"></i>
-        <span class="hidden sm:inline">Emergency</span> Helplines
+      <!-- HEADER ACTION -->
+      <button onclick="toggleHelplineModal(true)" class="relative group overflow-hidden flex items-center gap-2 bg-gradient-to-r from-[#153A60] to-[#1E4E7A] hover:from-[#1E4E7A] hover:to-[#2EA0E6] text-white border border-[#38BDF8]/40 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 shadow-lg shadow-cyan-500/10">
+        <i data-lucide="phone-call" class="w-4 h-4 text-[#38BDF8] group-hover:text-white transition-colors"></i>
+        <span>Emergency Helplines</span>
+        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-ping"></span>
       </button>
     </div>
 
-    <!-- NAVIGATION TABS -->
+    <!-- COLORFUL INTERACTIVE TABS -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-[#38BDF8]/10 overflow-x-auto custom-scrollbar">
-      <div class="flex space-x-2 sm:space-x-4 py-2">
-        <button id="tab-btn-lexicon" onclick="switchTab('lexicon')" class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-[#2EA0E6] text-white shadow-md">
-          <i data-lucide="book-open" class="w-4 h-4"></i> Harmful Lexicon
+      <div class="flex space-x-2 sm:space-x-3 py-2.5">
+        <button id="tab-btn-lexicon" onclick="switchTab('lexicon')" class="tab-btn active flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 bg-gradient-to-r from-[#2EA0E6] to-[#0284C7] text-white shadow-lg shadow-blue-500/30 scale-100">
+          <i data-lucide="book-open" class="w-4 h-4 text-cyan-200"></i> Harmful Lexicon
         </button>
-        <button id="tab-btn-reporting" onclick="switchTab('reporting')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition text-slate-300 hover:text-white hover:bg-[#153A60]/60">
-          <i data-lucide="shield" class="w-4 h-4"></i> Platform Reporting
+        <button id="tab-btn-reporting" onclick="switchTab('reporting')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-[#153A60]/70">
+          <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i> Platform Reporting
         </button>
-        <button id="tab-btn-decoder" onclick="switchTab('decoder')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition text-slate-300 hover:text-white hover:bg-[#153A60]/60">
-          <i data-lucide="search" class="w-4 h-4"></i> Slang Decoder
+        <button id="tab-btn-decoder" onclick="switchTab('decoder')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-[#153A60]/70">
+          <i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i> Slang Decoder
         </button>
-        <button id="tab-btn-evidence" onclick="switchTab('evidence')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition text-slate-300 hover:text-white hover:bg-[#153A60]/60">
-          <i data-lucide="file-text" class="w-4 h-4"></i> Evidence Studio
+        <button id="tab-btn-evidence" onclick="switchTab('evidence')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-[#153A60]/70">
+          <i data-lucide="file-text" class="w-4 h-4 text-purple-400"></i> Evidence Studio
         </button>
       </div>
     </div>
   </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow space-y-10">
+  <!-- MAIN WRAPPER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow space-y-12">
     
-    <!-- HERO BANNER -->
-    <div class="relative bg-[#153A60] border border-[#38BDF8]/30 rounded-3xl p-6 sm:p-10 lg:p-12 overflow-hidden shadow-2xl">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div class="lg:col-span-8 space-y-4 z-10">
-          <div class="inline-flex items-center gap-2 bg-[#0E253F] border border-[#38BDF8]/40 px-3 py-1 rounded-full">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#38BDF8]"></i>
+    <!-- VIVID COLORFUL HERO BANNER WITH RAINBOW ARC & COMMUNITY VECTOR -->
+    <div class="relative bg-gradient-to-br from-[#153A60] via-[#0E253F] to-[#08182B] border border-[#38BDF8]/40 rounded-3xl p-6 sm:p-10 lg:p-12 overflow-hidden shadow-2xl">
+      
+      <!-- Glowing Background Orbs -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#2EA0E6]/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-[#FB7185]/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        
+        <!-- Left Column: Typography & Badges -->
+        <div class="lg:col-span-7 space-y-5">
+          <div class="inline-flex items-center gap-2 bg-[#0E253F]/90 border border-[#38BDF8]/50 px-3.5 py-1.5 rounded-full shadow-inner">
+            <span class="w-2 h-2 rounded-full bg-[#38BDF8] animate-ping"></span>
             <span class="text-[11px] font-mono font-bold tracking-wider text-[#38BDF8] uppercase">Online Safety Navigator</span>
           </div>
+
           <h1 class="font-radley text-3xl sm:text-5xl text-white font-bold leading-tight">
             Online Safety, <br />
-            <span class="text-[#38BDF8] italic font-serif">Decoding Harm,</span> Empowering Voices.
+            <span class="bg-gradient-to-r from-[#38BDF8] via-[#FBBF24] to-[#FB7185] bg-clip-text text-transparent italic font-serif">Decoding Harm,</span> <br />
+            Empowering Voices.
           </h1>
+
           <p class="text-slate-200 text-sm sm:text-base leading-relaxed max-w-xl">
-            A comprehensive digital safety toolkit designed to decode cultural coded abuse, bypass censorship tactics, streamline platform reporting workflows, and preserve admissible incident evidence.
+            A comprehensive digital toolkit designed to decode cultural coded abuse, bypass censorship tactics, streamline platform reporting workflows, and preserve admissible incident evidence.
           </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <button onclick="switchTab('decoder')" class="bg-gradient-to-r from-[#2EA0E6] to-[#0284C7] hover:from-[#38BDF8] hover:to-[#2EA0E6] text-white px-5 py-3 rounded-xl text-xs font-bold transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2 hover:scale-105 active:scale-95">
+              <i data-lucide="scan" class="w-4 h-4"></i> Scan Coded Slang
+            </button>
+            <button onclick="switchTab('reporting')" class="bg-[#0E253F] hover:bg-[#153A60] text-slate-200 hover:text-white border border-[#38BDF8]/40 px-5 py-3 rounded-xl text-xs font-bold transition flex items-center gap-2">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400"></i> Platform Reporting Guides
+            </button>
+          </div>
         </div>
-        <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 bg-[#0E253F]/80 border border-[#38BDF8]/20 rounded-2xl text-center">
-          <i data-lucide="shield-alert" class="w-12 h-12 text-[#38BDF8] mb-3"></i>
-          <h3 class="text-white font-bold text-base mb-1">Zero Tolerance for Abuse</h3>
-          <p class="text-xs text-slate-300 mb-4">Direct escalations, pre-formatted reporting statements, and emergency contacts.</p>
-          <button onclick="toggleHelplineModal(true)" class="w-full bg-[#2EA0E6] hover:bg-[#1E88E5] text-white py-2 px-4 rounded-xl text-xs font-bold transition">
-            View 24/7 Verified Helplines
-          </button>
+
+        <!-- Right Column: Full Illustrated Arc & Community Vector Artwork -->
+        <div class="lg:col-span-5 relative flex flex-col items-center justify-end min-h-[380px] lg:min-h-[420px]">
+          
+          <!-- Floating Safety Badge (Top Left) -->
+          <div class="absolute top-2 left-0 z-30 bg-[#0E253F]/95 backdrop-blur-md border border-emerald-400/40 rounded-2xl p-3 shadow-xl animate-float-slow flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+              <i data-lucide="check-check" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <p class="text-[11px] font-bold text-white leading-tight">70+ Coded Terms</p>
+              <p class="text-[10px] text-emerald-300">Swahili & Sheng Moderation</p>
+            </div>
+          </div>
+
+          <!-- Floating Legal Shield (Bottom Right) -->
+          <div class="absolute bottom-4 right-0 z-30 bg-[#0E253F]/95 backdrop-blur-md border border-amber-400/40 rounded-2xl p-3 shadow-xl animate-float-delayed flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold">
+              <i data-lucide="scale" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <p class="text-[11px] font-bold text-white leading-tight">FIDA Kenya Counsel</p>
+              <p class="text-[10px] text-amber-300">0800 720 501 (Toll-Free)</p>
+            </div>
+          </div>
+
+          <!-- Vector Community Illustration & Multi-Color Rainbow Arc -->
+          <div class="relative z-10 w-full max-w-[380px]">
+            <svg viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto drop-shadow-2xl">
+              <defs>
+                <linearGradient id="arc1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#38BDF8" />
+                  <stop offset="100%" stop-color="#2563EB" />
+                </linearGradient>
+                <linearGradient id="arc2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FBBF24" />
+                  <stop offset="100%" stop-color="#F59E0B" />
+                </linearGradient>
+                <linearGradient id="arc3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FB7185" />
+                  <stop offset="100%" stop-color="#E11D48" />
+                </linearGradient>
+                <linearGradient id="arc4" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#A78BFA" />
+                  <stop offset="100%" stop-color="#7C3AED" />
+                </linearGradient>
+              </defs>
+
+              <!-- 4 Concentric Rainbow Arcs -->
+              <path d="M 40 300 A 160 160 0 0 1 360 300" stroke="url(#arc1)" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.9"/>
+              <path d="M 68 300 A 132 132 0 0 1 332 300" stroke="url(#arc2)" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.95"/>
+              <path d="M 96 300 A 104 104 0 0 1 304 300" stroke="url(#arc3)" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.95"/>
+              <path d="M 124 300 A 76 76 0 0 1 276 300" stroke="url(#arc4)" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.9"/>
+
+              <!-- Community Silhouette Figures Standing Together -->
+              <!-- Person 1 (Left - Teal) -->
+              <circle cx="160" cy="180" r="14" fill="#38BDF8"/>
+              <path d="M 140 260 C 140 215, 180 215, 180 260 Z" fill="#0284C7"/>
+
+              <!-- Person 2 (Center - Empowered Woman / Gold) -->
+              <circle cx="200" cy="165" r="16" fill="#FBBF24"/>
+              <path d="M 175 260 C 175 200, 225 200, 225 260 Z" fill="#D97706"/>
+
+              <!-- Person 3 (Right - Coral) -->
+              <circle cx="240" cy="180" r="14" fill="#FB7185"/>
+              <path d="M 220 260 C 220 215, 260 215, 260 260 Z" fill="#BE123C"/>
+            </svg>
+          </div>
+
         </div>
+
       </div>
     </div>
 
@@ -139,15 +268,18 @@
           <h2 class="text-2xl font-bold text-white flex items-center gap-2">
             <i data-lucide="book-marked" class="w-6 h-6 text-[#38BDF8]"></i> Harmful & Coded Lexicon
           </h2>
-          <p class="text-xs text-slate-400">Database of coded Swahili, Sheng, and subcultural slang used to evade platform moderation.</p>
+          <p class="text-xs text-slate-400">Database of coded Swahili, Sheng, and subcultural slang used to evade platform filters.</p>
         </div>
         <div class="w-full sm:w-80">
-          <input type="text" id="lexicon-search" oninput="filterLexicon()" placeholder="Search terms, meanings, or tags..." class="w-full bg-[#0E253F] border border-[#38BDF8]/30 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#38BDF8]" />
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+            <input type="text" id="lexicon-search" oninput="filterLexicon()" placeholder="Search terms, meanings, or categories..." class="w-full bg-[#0E253F] border border-[#38BDF8]/30 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#38BDF8] shadow-inner" />
+          </div>
         </div>
       </div>
 
-      <div id="lexicon-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Lexicon Cards injected dynamically -->
+      <div id="lexicon-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Injected via JavaScript -->
       </div>
     </section>
 
@@ -161,53 +293,54 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Platform Selector -->
-        <div class="space-y-2">
-          <button onclick="selectPlatform('tiktok')" class="platform-btn w-full text-left p-4 rounded-2xl border border-[#38BDF8]/20 bg-[#0E253F] hover:bg-[#153A60] transition flex items-center justify-between">
+        <div class="space-y-3">
+          <button onclick="selectPlatform('tiktok')" class="platform-btn interactive-card w-full text-left p-4 rounded-2xl border border-[#38BDF8]/20 bg-[#0E253F] hover:bg-[#153A60] transition flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold">TT</div>
+              <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-xs">TT</div>
               <div>
                 <p class="text-sm font-bold text-white">TikTok</p>
-                <p class="text-[11px] text-slate-400">Comments, Live, Direct Messages</p>
+                <p class="text-[11px] text-slate-400">Video, Live & Comments</p>
               </div>
             </div>
             <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
           </button>
-          <button onclick="selectPlatform('x')" class="platform-btn w-full text-left p-4 rounded-2xl border border-[#38BDF8]/20 bg-[#0E253F] hover:bg-[#153A60] transition flex items-center justify-between">
+
+          <button onclick="selectPlatform('x')" class="platform-btn interactive-card w-full text-left p-4 rounded-2xl border border-[#38BDF8]/20 bg-[#0E253F] hover:bg-[#153A60] transition flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">X</div>
+              <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">X</div>
               <div>
                 <p class="text-sm font-bold text-white">X (Twitter)</p>
-                <p class="text-[11px] text-slate-400">Targeted harassment, doxxing</p>
+                <p class="text-[11px] text-slate-400">Targeted Swarms & Doxxing</p>
               </div>
             </div>
             <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
           </button>
-          <button onclick="selectPlatform('instagram')" class="platform-btn w-full text-left p-4 rounded-2xl border border-[#38BDF8]/20 bg-[#0E253F] hover:bg-[#153A60] transition flex items-center justify-between">
+
+          <button onclick="selectPlatform('instagram')" class="platform-btn interactive-card w-full text-left p-4 rounded-2xl border border-[#38BDF8]/20 bg-[#0E253F] hover:bg-[#153A60] transition flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">IG</div>
+              <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">IG</div>
               <div>
                 <p class="text-sm font-bold text-white">Instagram / Meta</p>
-                <p class="text-[11px] text-slate-400">Reels, DMs, Impersonation</p>
+                <p class="text-[11px] text-slate-400">Reels, DMs & Impersonation</p>
               </div>
             </div>
             <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
           </button>
-          <button onclick="selectPlatform('whatsapp')" class="platform-btn w-full text-left p-4 rounded-2xl border border-[#38BDF8]/20 bg-[#0E253F] hover:bg-[#153A60] transition flex items-center justify-between">
+
+          <button onclick="selectPlatform('whatsapp')" class="platform-btn interactive-card w-full text-left p-4 rounded-2xl border border-[#38BDF8]/20 bg-[#0E253F] hover:bg-[#153A60] transition flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">WA</div>
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">WA</div>
               <div>
                 <p class="text-sm font-bold text-white">WhatsApp</p>
-                <p class="text-[11px] text-slate-400">Group abuse, non-consensual media</p>
+                <p class="text-[11px] text-slate-400">Group Abuse & Leakage</p>
               </div>
             </div>
             <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
           </button>
         </div>
 
-        <!-- Guide Details Card -->
-        <div id="platform-detail" class="md:col-span-2 bg-[#0E253F] border border-[#38BDF8]/30 rounded-3xl p-6 sm:p-8 space-y-6">
-          <!-- Populated by JavaScript -->
+        <div id="platform-detail" class="md:col-span-2 bg-gradient-to-br from-[#0E253F] to-[#0A1A2F] border border-[#38BDF8]/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+          <!-- Injected via JavaScript -->
         </div>
       </div>
     </section>
@@ -218,35 +351,37 @@
         <h2 class="text-2xl font-bold text-white flex items-center gap-2">
           <i data-lucide="cpu" class="w-6 h-6 text-[#38BDF8]"></i> Slang & Coded Phrase Decoder
         </h2>
-        <p class="text-xs text-slate-400">Paste suspicious comments or coded text to scan against our linguistic harm dictionary.</p>
+        <p class="text-xs text-slate-400">Paste suspicious comments or messages to scan against our linguistic harm database.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div class="lg:col-span-6 bg-[#0E253F] border border-[#38BDF8]/30 rounded-3xl p-6 space-y-4">
+        <div class="lg:col-span-6 bg-[#0E253F] border border-[#38BDF8]/30 rounded-3xl p-6 space-y-4 shadow-xl">
           <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Paste Text or Message</label>
-          <textarea id="decoder-input" rows="6" placeholder="Paste comment or phrase here (e.g., 'Huyu apelekwe jikoni', 'Kula block', 'Kanairo ni shamba la mawe')..." class="w-full bg-[#0A1A2F] border border-[#38BDF8]/30 rounded-2xl p-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#38BDF8] custom-scrollbar"></textarea>
-          <button onclick="runDecoder()" class="w-full bg-[#2EA0E6] hover:bg-[#1E88E5] text-white py-3 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg">
+          <textarea id="decoder-input" rows="6" placeholder="Paste comment or phrase here (e.g., 'Huyu apelekwe jikoni', 'Kula block', 'Kwani huna bwana?', 'Atajua hajui')..." class="w-full bg-[#0A1A2F] border border-[#38BDF8]/30 rounded-2xl p-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#38BDF8] custom-scrollbar"></textarea>
+          <button onclick="runDecoder()" class="w-full bg-gradient-to-r from-[#2EA0E6] to-[#0284C7] hover:from-[#38BDF8] hover:to-[#2EA0E6] text-white py-3.5 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25">
             <i data-lucide="scan-search" class="w-4 h-4"></i> Scan & Decode Text
           </button>
         </div>
 
-        <div class="lg:col-span-6 bg-[#0E253F] border border-[#38BDF8]/30 rounded-3xl p-6 flex flex-col justify-between">
+        <div class="lg:col-span-6 bg-gradient-to-br from-[#0E253F] to-[#0A1A2F] border border-[#38BDF8]/30 rounded-3xl p-6 flex flex-col justify-between shadow-xl">
           <div>
-            <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
               <i data-lucide="activity" class="w-4 h-4 text-[#38BDF8]"></i> Linguistic Analysis Result
             </h3>
             <div id="decoder-result" class="text-xs text-slate-300 space-y-3">
               <p class="text-slate-400 italic">Enter a sentence on the left to scan for harmful coded language.</p>
             </div>
           </div>
-          <div id="report-template-box" class="hidden mt-4 p-4 bg-[#153A60]/60 border border-[#38BDF8]/30 rounded-xl space-y-2">
+          <div id="report-template-box" class="hidden mt-4 p-4 bg-[#153A60]/80 border border-[#38BDF8]/40 rounded-2xl space-y-2.5">
             <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-[#38BDF8] uppercase">Prepared Platform Statement</span>
-              <button onclick="copyReportStatement()" class="text-xs text-white hover:text-[#38BDF8] flex items-center gap-1 font-bold">
+              <span class="text-[11px] font-bold text-[#38BDF8] uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="file-check" class="w-3.5 h-3.5"></i> Prepared Platform Statement
+              </span>
+              <button onclick="copyReportStatement()" class="text-xs bg-[#2EA0E6] hover:bg-[#1E88E5] text-white px-2.5 py-1 rounded-lg flex items-center gap-1 font-bold transition">
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
               </button>
             </div>
-            <p id="report-statement-text" class="text-xs text-slate-200 font-mono"></p>
+            <p id="report-statement-text" class="text-xs text-slate-200 font-mono bg-[#0A1A2F]/80 p-2.5 rounded-xl border border-white/5"></p>
           </div>
         </div>
       </div>
@@ -258,13 +393,12 @@
         <h2 class="text-2xl font-bold text-white flex items-center gap-2">
           <i data-lucide="file-check" class="w-6 h-6 text-[#38BDF8]"></i> Incident Evidence Studio
         </h2>
-        <p class="text-xs text-slate-400">Log timestamps, abusive profile links, and generate a downloadable report for legal recourse or platform appeals.</p>
+        <p class="text-xs text-slate-400">Log timestamps, profile links, and generate a downloadable report for legal recourse or platform appeals.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Form -->
-        <div class="lg:col-span-5 bg-[#0E253F] border border-[#38BDF8]/30 rounded-3xl p-6 space-y-4">
-          <h3 class="text-sm font-bold text-white">Record New Incident Entry</h3>
+        <div class="lg:col-span-5 bg-[#0E253F] border border-[#38BDF8]/30 rounded-3xl p-6 space-y-4 shadow-xl">
+          <h3 class="text-sm font-bold text-white">Record Incident Entry</h3>
           <div>
             <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Platform</label>
             <select id="ev-platform" class="w-full bg-[#0A1A2F] border border-[#38BDF8]/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
@@ -273,28 +407,28 @@
               <option value="Instagram">Instagram</option>
               <option value="WhatsApp">WhatsApp</option>
               <option value="Facebook">Facebook</option>
+              <option value="Telegram">Telegram</option>
               <option value="Other">Other</option>
             </select>
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Offending User / URL</label>
+            <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Offender Profile / URL</label>
             <input type="text" id="ev-url" placeholder="@username or link to post" class="w-full bg-[#0A1A2F] border border-[#38BDF8]/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none" />
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Incident Notes / Harm Details</label>
-            <textarea id="ev-notes" rows="3" placeholder="Describe the violation, coded terms used, or threats..." class="w-full bg-[#0A1A2F] border border-[#38BDF8]/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"></textarea>
+            <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Harm Details & Coded Phrases Used</label>
+            <textarea id="ev-notes" rows="3" placeholder="Describe the violation, threats, or harassment..." class="w-full bg-[#0A1A2F] border border-[#38BDF8]/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"></textarea>
           </div>
-          <button onclick="addEvidenceItem()" class="w-full bg-[#2EA0E6] hover:bg-[#1E88E5] text-white py-2.5 rounded-xl font-bold text-xs transition">
+          <button onclick="addEvidenceItem()" class="w-full bg-gradient-to-r from-[#2EA0E6] to-[#0284C7] hover:from-[#38BDF8] hover:to-[#2EA0E6] text-white py-3 rounded-xl font-bold text-xs transition shadow-lg shadow-blue-500/25">
             Add to Evidence Chain
           </button>
         </div>
 
-        <!-- Log List & Export -->
-        <div class="lg:col-span-7 bg-[#0E253F] border border-[#38BDF8]/30 rounded-3xl p-6 flex flex-col justify-between space-y-4">
+        <div class="lg:col-span-7 bg-gradient-to-br from-[#0E253F] to-[#0A1A2F] border border-[#38BDF8]/30 rounded-3xl p-6 flex flex-col justify-between space-y-4 shadow-xl">
           <div>
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-sm font-bold text-white">Evidence Log (<span id="ev-count">0</span> items)</h3>
-              <button onclick="exportEvidenceFile()" class="text-xs bg-[#153A60] hover:bg-[#1E4E7A] text-[#38BDF8] border border-[#38BDF8]/40 px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5">
+              <button onclick="exportEvidenceFile()" class="text-xs bg-[#153A60] hover:bg-[#1E4E7A] text-[#38BDF8] border border-[#38BDF8]/40 px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-1.5 shadow">
                 <i data-lucide="download" class="w-3.5 h-3.5"></i> Export Report (TXT)
               </button>
             </div>
@@ -302,7 +436,7 @@
               <p class="text-xs text-slate-400 italic">No incidents recorded in this session yet.</p>
             </div>
           </div>
-          <p class="text-[11px] text-slate-500">All session logs are stored locally in your browser memory for strict privacy and confidentiality.</p>
+          <p class="text-[11px] text-slate-500">Session logs are stored locally in your browser memory for strict privacy and confidentiality.</p>
         </div>
       </div>
     </section>
@@ -310,8 +444,8 @@
   </main>
 
   <!-- EMERGENCY HELPLINES MODAL -->
-  <div id="helpline-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-[#0E253F] border border-[#38BDF8]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl">
+  <div id="helpline-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-gradient-to-b from-[#0E253F] to-[#0A1A2F] border border-[#38BDF8]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl">
       <div class="flex items-center justify-between border-b border-[#38BDF8]/20 pb-4">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center font-bold">
@@ -327,112 +461,131 @@
         </button>
       </div>
 
-      <div class="space-y-3">
-        <div class="p-4 rounded-2xl bg-[#153A60]/60 border border-[#38BDF8]/30 flex items-center justify-between">
+      <div class="space-y-3.5">
+        <div class="p-4 rounded-2xl bg-[#153A60]/70 border border-[#38BDF8]/30 flex items-center justify-between hover:border-[#38BDF8]/60 transition">
           <div>
-            <p class="text-xs font-bold text-white">National Gender-Based Violence Hotline</p>
+            <p class="text-xs font-bold text-white">National GBV Hotline</p>
             <p class="text-[11px] text-[#38BDF8]">24/7 Crisis Counseling & Medical Referral</p>
           </div>
-          <a href="tel:1195" class="bg-red-500 hover:bg-red-600 text-white font-mono font-bold text-xs px-3 py-1.5 rounded-lg">1195</a>
+          <a href="tel:1195" class="bg-red-500 hover:bg-red-600 text-white font-mono font-bold text-xs px-3.5 py-2 rounded-xl shadow-lg transition">1195</a>
         </div>
 
-        <div class="p-4 rounded-2xl bg-[#153A60]/60 border border-[#38BDF8]/30 flex items-center justify-between">
+        <div class="p-4 rounded-2xl bg-[#153A60]/70 border border-[#38BDF8]/30 flex items-center justify-between hover:border-amber-400/60 transition">
           <div>
-            <p class="text-xs font-bold text-white">FIDA Kenya (Federation of Women Lawyers)</p>
+            <p class="text-xs font-bold text-white">FIDA Kenya (Women Lawyers)</p>
             <p class="text-[11px] text-amber-300">Free Legal Aid & Court Orders for Survivors</p>
           </div>
-          <a href="tel:0800720501" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-mono font-bold text-xs px-3 py-1.5 rounded-lg">0800 720 501</a>
+          <a href="tel:0800720501" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-mono font-bold text-xs px-3.5 py-2 rounded-xl shadow-lg transition">0800 720 501</a>
         </div>
 
-        <div class="p-4 rounded-2xl bg-[#153A60]/60 border border-[#38BDF8]/30 flex items-center justify-between">
+        <div class="p-4 rounded-2xl bg-[#153A60]/70 border border-[#38BDF8]/30 flex items-center justify-between hover:border-blue-400/60 transition">
           <div>
-            <p class="text-xs font-bold text-white">National Cybercrime Response Centre (KE-CIRT)</p>
-            <p class="text-[11px] text-blue-300">Doxxing, Revenge Porn, Extortion & Account Hacking</p>
+            <p class="text-xs font-bold text-white">KE-CIRT Cybercrime Center</p>
+            <p class="text-[11px] text-blue-300">Doxxing, Extortion & Account Takeovers</p>
           </div>
-          <a href="tel:0800722203" class="bg-blue-500 hover:bg-blue-600 text-white font-mono font-bold text-xs px-3 py-1.5 rounded-lg">0800 722 203</a>
+          <a href="tel:0800722203" class="bg-blue-500 hover:bg-blue-600 text-white font-mono font-bold text-xs px-3.5 py-2 rounded-xl shadow-lg transition">0800 722 203</a>
         </div>
       </div>
 
-      <button onclick="toggleHelplineModal(false)" class="w-full bg-[#153A60] hover:bg-[#1E4E7A] text-white py-2.5 rounded-xl text-xs font-bold transition">
+      <button onclick="toggleHelplineModal(false)" class="w-full bg-[#153A60] hover:bg-[#1E4E7A] text-white py-3 rounded-xl text-xs font-bold transition">
         Close Window
       </button>
     </div>
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t border-[#38BDF8]/20 bg-[#0E253F] py-8 mt-12">
+  <footer class="border-t border-[#38BDF8]/20 bg-[#0E253F] py-10 mt-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="font-radley text-lg font-bold text-white">Presence</span>
-        <span>— Online Safety Platform</span>
+      <div class="flex items-center gap-3">
+        <span class="font-radley text-xl font-bold text-white">Presence</span>
+        <span class="text-[#38BDF8]">| Online Safety Platform</span>
       </div>
       <div class="flex flex-wrap items-center justify-center gap-6">
         <span>National Hotline: <strong class="text-white">1195</strong></span>
         <span>FIDA Kenya Legal Aid: <strong class="text-white">0800 720 501</strong></span>
         <span>Cybercrime Desk: <strong class="text-white">0800 722 203</strong></span>
       </div>
-      <p>© Presence. Digital Protection for Everyone.</p>
+      <p>© Presence Africa. Dedicated to Digital Dignity & Voice Protection.</p>
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIC (No Imports) -->
+  <!-- SCRIPT ENGINE -->
   <script>
-    // --- 1. LEXICON DATA ---
     const LEXICON = [
       {
         term: "Apelekwe jikoni",
-        meaning: "Direct misogynistic trope telling women to 'go back to the kitchen' and leave public/digital spaces.",
+        meaning: "Direct misogynistic trope telling women to 'go back to the kitchen' and leave public discourse.",
         category: "Gender Harassment",
-        impact: "Devalues female voices in political and professional discussions.",
-        tags: ["swahili", "gender", "silencing"]
+        impact: "Devalues female voices in politics, journalism, and civic spaces.",
+        color: "from-pink-500/20 to-rose-500/10 border-pink-500/30 text-pink-300"
       },
       {
         term: "Kula block",
-        meaning: "Threat of coordinated mass blocking or brigading against a target.",
+        meaning: "Threat of coordinated mass blocking, trolling, or targeted brigading against a creator.",
         category: "Coordinated Brigading",
-        impact: "Intimidation tactic designed to de-platform creators.",
-        tags: ["sheng", "brigading", "bullying"]
+        impact: "Intimidation tactic designed to suppress digital visibility.",
+        color: "from-blue-500/20 to-cyan-500/10 border-blue-500/30 text-blue-300"
       },
       {
         term: "Kwani huna bwana?",
         meaning: "'Don't you have a husband?' Used to dismiss female opinions as invalid without male supervision.",
         category: "Patriarchal Silencing",
-        impact: "Targeted harassment delegitimizing female autonomy.",
-        tags: ["swahili", "harassment"]
+        impact: "Targeted harassment delegitimizing female autonomy and authority.",
+        color: "from-purple-500/20 to-indigo-500/10 border-purple-500/30 text-purple-300"
       },
       {
         term: "Atajua hajui",
-        meaning: "'They will find out they don't know.' Used as an ominous threat of impending physical or digital retaliation.",
+        meaning: "'They will find out they don't know.' Ominous threat of impending digital or physical retaliation.",
         category: "Veiled Threat",
-        impact: "Creates persistent psychological fear of offline harm.",
-        tags: ["sheng", "intimidation"]
+        impact: "Creates persistent psychological fear of offline consequences.",
+        color: "from-amber-500/20 to-yellow-500/10 border-amber-500/30 text-amber-300"
       },
       {
         term: "Tafuta sponsor",
-        meaning: "Transactional sex innuendo used to demean successful independent women.",
+        meaning: "Transactional sex innuendo used to demean successful, independent working women.",
         category: "Sexual Slur",
-        impact: "Erodes credibility through misogynistic character assassination.",
-        tags: ["sheng", "misogyny"]
+        impact: "Character assassination delegitimizing professional achievements.",
+        color: "from-red-500/20 to-pink-500/10 border-red-500/30 text-red-300"
       },
       {
         term: "Kanairo ni shamba la mawe",
-        meaning: "Often hijacked in comments to justify scamming or victim-blaming in extortion cases.",
+        meaning: "Phrased used in comment sections to justify fraud, extortion, or victim-blaming.",
         category: "Victim Blaming",
-        impact: "Normalizes predatory cyber fraud.",
-        tags: ["sheng", "scam"]
+        impact: "Normalizes predatory cyber extortion and harassment.",
+        color: "from-emerald-500/20 to-teal-500/10 border-emerald-500/30 text-emerald-300"
+      },
+      {
+        term: "Weka kwa group",
+        meaning: "Threat of leaking private chats, non-consensual media, or doxxed phone numbers into Telegram/WhatsApp swarms.",
+        category: "Doxxing / Leakage",
+        impact: "Non-consensual dissemination of private communications.",
+        color: "from-orange-500/20 to-amber-500/10 border-orange-500/30 text-orange-300"
+      },
+      {
+        term: "Anajifanya slay queen",
+        meaning: "Dehumanizing term used to dismiss and mock female victims of assault or online scams.",
+        category: "Victim Blaming",
+        impact: "Reduces willingness of victims to report cybercrimes.",
+        color: "from-fuchsia-500/20 to-purple-500/10 border-fuchsia-500/30 text-fuchsia-300"
+      },
+      {
+        term: "Tumtume cyber",
+        meaning: "Threat to deploy bot farms or hire troll accounts to mass-report an account into automated suspension.",
+        category: "Account Sabotage",
+        impact: "Coordinated denial-of-service against digital activists and creators.",
+        color: "from-cyan-500/20 to-blue-500/10 border-cyan-500/30 text-cyan-300"
       }
     ];
 
-    // --- 2. PLATFORM REPORTING DATA ---
     const PLATFORMS = {
       tiktok: {
         title: "TikTok Safety & Escalation Protocol",
         badge: "Video & Live Stream Safety",
         steps: [
-          "Long press on the offending video or comment.",
-          "Tap 'Report' > Select 'Harassment or Bullying'.",
-          "If targeted via live stream, tap Share > Report Room.",
-          "To block retaliatory alt accounts, enable 'Filter all comments' under Creator Tools > Privacy."
+          "Long press on the offending video or swipe left on the comment.",
+          "Tap 'Report' > Select 'Harassment or Bullying' > 'Targeting me or someone else'.",
+          "If targeted via live stream, tap Share > Report Room > 'Harassment & Hate Speech'.",
+          "Enable 'Filter all comments' under Creator Tools > Privacy to review comments prior to public display."
         ],
         escalation: "https://www.tiktok.com/legal/report/feedback"
       },
@@ -443,7 +596,7 @@
           "Tap the three dots (...) on the offending post.",
           "Select 'Report post' > 'Abuse or Harassment' > 'Targeting me or someone else'.",
           "Enable 'Quality Filter' in Notifications settings to silence unverified bot swarms.",
-          "Document timestamped URLs before blocking the instigator."
+          "Document timestamped tweet URLs before blocking the instigator."
         ],
         escalation: "https://help.twitter.com/forms/abusiveuser"
       },
@@ -452,9 +605,9 @@
         badge: "Meta Content Standards",
         steps: [
           "Tap the three dots on the post or swipe left on the comment > Tap 'Report'.",
-          "Select 'Bullying or harassment' and choose who is being targeted.",
-          "Enable 'Hidden Words' under Privacy to auto-hide custom coded phrases.",
-          "Use 'Restrict' mode to silently hide their comments from public view without tipping off the abuser."
+          "Select 'Bullying or harassment' and specify who is targeted.",
+          "Enable 'Hidden Words' under Settings > Privacy to auto-hide custom coded phrases.",
+          "Use 'Restrict' mode to silently hide their comments from public view without notifying the harasser."
         ],
         escalation: "https://www.instagram.com/hacked"
       },
@@ -463,22 +616,21 @@
         badge: "End-to-End Encrypted Incidents",
         steps: [
           "Open chat > Tap contact/group name > Scroll down to 'Report Contact' or 'Report Group'.",
-          "Ensure 'Block contact and delete chat' is selected AFTER taking full-screen screenshots with timestamps.",
+          "Ensure 'Block contact and delete chat' is selected AFTER taking uncropped screenshots with phone numbers visible.",
           "In privacy settings, restrict 'Who can add me to groups' to 'My Contacts Except...'."
         ],
         escalation: "https://www.whatsapp.com/contact"
       }
     };
 
-    // --- 3. UI STATE & TAB SWITCHING ---
     function switchTab(tabId) {
       document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-[#2EA0E6]', 'text-white', 'shadow-md');
+        btn.classList.remove('bg-gradient-to-r', 'from-[#2EA0E6]', 'to-[#0284C7]', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
         btn.classList.add('text-slate-300');
       });
       const activeBtn = document.getElementById(`tab-btn-${tabId}`);
       if (activeBtn) {
-        activeBtn.classList.add('bg-[#2EA0E6]', 'text-white', 'shadow-md');
+        activeBtn.classList.add('bg-gradient-to-r', 'from-[#2EA0E6]', 'to-[#0284C7]', 'text-white', 'shadow-lg', 'shadow-blue-500/30');
         activeBtn.classList.remove('text-slate-300');
       }
 
@@ -493,17 +645,16 @@
       lucide.createIcons();
     }
 
-    // --- 4. RENDER LEXICON ---
     function renderLexicon(items) {
       const grid = document.getElementById('lexicon-grid');
       grid.innerHTML = items.map(item => `
-        <div class="bg-[#0E253F] border border-[#38BDF8]/20 rounded-2xl p-5 space-y-3 hover:border-[#38BDF8]/50 transition">
+        <div class="interactive-card bg-gradient-to-b from-[#0E253F] to-[#0A1A2F] border border-[#38BDF8]/20 rounded-2xl p-6 space-y-3.5 shadow-lg">
           <div class="flex items-start justify-between gap-2">
-            <h4 class="text-base font-bold text-white">"${item.term}"</h4>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#153A60] text-[#38BDF8] border border-[#38BDF8]/30 whitespace-nowrap">${item.category}</span>
+            <h4 class="text-lg font-bold text-white tracking-tight">"${item.term}"</h4>
+            <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r ${item.color} border whitespace-nowrap">${item.category}</span>
           </div>
-          <p class="text-xs text-slate-300">${item.meaning}</p>
-          <div class="pt-2 border-t border-[#38BDF8]/10 text-[11px] text-amber-300">
+          <p class="text-xs text-slate-300 leading-relaxed">${item.meaning}</p>
+          <div class="pt-3 border-t border-[#38BDF8]/10 text-[11px] text-amber-300 font-medium">
             <strong>Impact:</strong> ${item.impact}
           </div>
         </div>
@@ -515,40 +666,37 @@
       const filtered = LEXICON.filter(item => 
         item.term.toLowerCase().includes(query) ||
         item.meaning.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query) ||
-        item.tags.some(t => t.toLowerCase().includes(query))
+        item.category.toLowerCase().includes(query)
       );
       renderLexicon(filtered);
     }
 
-    // --- 5. RENDER PLATFORM GUIDE ---
     function selectPlatform(platformKey) {
       const data = PLATFORMS[platformKey] || PLATFORMS.tiktok;
       const detail = document.getElementById('platform-detail');
       detail.innerHTML = `
         <div class="flex items-center justify-between border-b border-[#38BDF8]/20 pb-4">
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-[#153A60] px-2.5 py-1 rounded-full">${data.badge}</span>
-            <h3 class="text-xl font-bold text-white mt-2">${data.title}</h3>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-[#153A60] px-3 py-1 rounded-full border border-[#38BDF8]/30">${data.badge}</span>
+            <h3 class="text-2xl font-bold text-white mt-2 font-radley">${data.title}</h3>
           </div>
         </div>
         <div class="space-y-3">
           <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Required In-App Steps</h4>
-          <ol class="space-y-2 text-xs text-slate-200 list-decimal list-inside">
-            ${data.steps.map(step => `<li class="p-2.5 rounded-xl bg-[#0A1A2F]/60 border border-[#38BDF8]/10">${step}</li>`).join('')}
+          <ol class="space-y-2.5 text-xs text-slate-200 list-decimal list-inside">
+            ${data.steps.map(step => `<li class="p-3 rounded-xl bg-[#0A1A2F]/80 border border-[#38BDF8]/15 leading-relaxed">${step}</li>`).join('')}
           </ol>
         </div>
         <div class="pt-4 border-t border-[#38BDF8]/20 flex items-center justify-between">
           <span class="text-xs text-slate-400">Need direct escalation?</span>
-          <a href="${data.escalation}" target="_blank" rel="noopener noreferrer" class="bg-[#2EA0E6] hover:bg-[#1E88E5] text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
-            Official Escalation Form <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <a href="${data.escalation}" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-[#2EA0E6] to-[#0284C7] hover:from-[#38BDF8] hover:to-[#2EA0E6] text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-blue-500/20">
+            Official Escalation Portal <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           </a>
         </div>
       `;
       lucide.createIcons();
     }
 
-    // --- 6. DECODER SCAN ---
     function runDecoder() {
       const text = document.getElementById('decoder-input').value.trim();
       const resultBox = document.getElementById('decoder-result');
@@ -556,7 +704,7 @@
       const statementText = document.getElementById('report-statement-text');
 
       if (!text) {
-        resultBox.innerHTML = '<p class="text-amber-400">Please paste some text to scan.</p>';
+        resultBox.innerHTML = '<p class="text-amber-400 font-bold">Please paste a phrase or comment to scan.</p>';
         return;
       }
 
@@ -564,10 +712,10 @@
 
       if (matches.length > 0) {
         resultBox.innerHTML = `
-          <div class="p-3 bg-red-500/20 border border-red-500/40 rounded-xl space-y-1.5">
+          <div class="p-4 bg-red-500/20 border border-red-500/40 rounded-2xl space-y-2 shadow-inner">
             <p class="text-xs font-bold text-red-300">⚠️ Detected ${matches.length} Harmful / Coded Term(s):</p>
-            <ul class="list-disc list-inside text-xs text-slate-200">
-              ${matches.map(m => `<li><strong>"${m.term}"</strong> — ${m.category}: ${m.meaning}</li>`).join('')}
+            <ul class="list-disc list-inside text-xs text-slate-200 space-y-1">
+              ${matches.map(m => `<li><strong>"${m.term}"</strong> — <span class="text-amber-300">${m.category}</span>: ${m.meaning}</li>`).join('')}
             </ul>
           </div>
         `;
@@ -575,9 +723,9 @@
         statementText.innerText = `This content contains culturally coded abuse ("${matches.map(m => m.term).join(', ')}") classified as ${matches.map(m => m.category).join(', ')} intended to evade standard language filters.`;
       } else {
         resultBox.innerHTML = `
-          <div class="p-3 bg-emerald-500/20 border border-emerald-500/40 rounded-xl">
-            <p class="text-xs font-bold text-emerald-300">✓ No obvious coded phrases found in our primary lexicon.</p>
-            <p class="text-[11px] text-slate-300 mt-1">If this message contains subtle threats or stalking, record it in the Evidence Studio.</p>
+          <div class="p-4 bg-emerald-500/20 border border-emerald-500/40 rounded-2xl">
+            <p class="text-xs font-bold text-emerald-300">✓ No obvious coded phrases found in our primary dictionary.</p>
+            <p class="text-[11px] text-slate-300 mt-1">If this message contains subtle stalking or doxxing threats, record it in the Evidence Studio.</p>
           </div>
         `;
         templateBox.classList.add('hidden');
@@ -591,7 +739,6 @@
       alert('Report statement copied to clipboard!');
     }
 
-    // --- 7. EVIDENCE LOGGER ---
     let evidenceStore = [];
 
     function addEvidenceItem() {
@@ -628,9 +775,9 @@
       }
 
       list.innerHTML = evidenceStore.map(ev => `
-        <div class="p-3 bg-[#0A1A2F] border border-[#38BDF8]/20 rounded-xl text-xs space-y-1">
+        <div class="p-3.5 bg-[#0A1A2F] border border-[#38BDF8]/20 rounded-2xl text-xs space-y-1.5">
           <div class="flex items-center justify-between text-slate-400 text-[10px]">
-            <span class="font-bold text-[#38BDF8]">${ev.platform}</span>
+            <span class="font-bold text-[#38BDF8] bg-[#153A60] px-2 py-0.5 rounded-md">${ev.platform}</span>
             <span>${ev.time}</span>
           </div>
           <p class="text-white font-mono"><strong>Target:</strong> ${ev.url}</p>
@@ -652,7 +799,6 @@
       a.click();
     }
 
-    // --- 8. MODAL CONTROLS ---
     function toggleHelplineModal(open) {
       const modal = document.getElementById('helpline-modal');
       if (open) {
@@ -665,7 +811,6 @@
       lucide.createIcons();
     }
 
-    // --- INITIALIZE ---
     window.addEventListener('DOMContentLoaded', () => {
       renderLexicon(LEXICON);
       selectPlatform('tiktok');
