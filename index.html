@@ -1,532 +1,588 @@
-import React, { useState, useMemo, useRef } from 'react';
-import { KICTANET_LEXICON } from '../data/lexiconData';
-import { LexiconItem, CommunityReportedTerm } from '../types';
-import { ReportCodedLanguageModal } from './ReportCodedLanguageModal';
-import { 
-  Search, 
-  X, 
-  Copy, 
-  Check, 
-  Sparkles, 
-  PlusCircle
-} from 'lucide-react';
-
-interface LexiconExplorerProps {
-  initialSearchQuery?: string;
-  onSelectTermForDecode?: (term: string) => void;
-  onSelectTermForReport?: (term: LexiconItem) => void;
-}
-
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-// Category badge color mapping:
-// Harassment = pale navy tint bg + navy text
-// Doxxing / Non-consensual sharing = pale yellow tint bg (#FFF4D9) + amber text (#946B00)
-// Coercion = pale green tint bg (#E1F6EA) + green text (#127A47)
-// Threat / Incitement = pale red tint bg (#FBEAE7) + red text (#B0402F)
-export const getCategoryBadgeStyle = (category: string) => {
-  const cat = category.toLowerCase();
-  if (cat.includes('doxx') || cat.includes('privacy') || cat.includes('non-consensual') || cat.includes('sharing') || cat.includes('disinformation')) {
-    return {
-      bg: 'bg-[#FFF4D9]',
-      text: 'text-[#946B00]',
-      border: 'border-[#F6E0A4]',
-      label: category
-    };
-  }
-  if (cat.includes('coercion') || cat.includes('advances')) {
-    return {
-      bg: 'bg-[#E1F6EA]',
-      text: 'text-[#127A47]',
-      border: 'border-[#BAE9CD]',
-      label: category
-    };
-  }
-  if (cat.includes('threat') || cat.includes('incitement') || cat.includes('mob') || cat.includes('violence') || cat.includes('body shaming')) {
-    return {
-      bg: 'bg-[#FBEAE7]',
-      text: 'text-[#B0402F]',
-      border: 'border-[#F6C6BE]',
-      label: category
-    };
-  }
-  // Default to Harassment / Sexism / Slut shaming / Misogyny: pale navy tint + navy text
-  return {
-    bg: 'bg-[#EBF2FA]',
-    text: 'text-[#123354]',
-    border: 'border-[#D0E1F4]',
-    label: category
-  };
-};
-
-// Clean term to get true first alphabetical character, ignoring quotes/symbols
-export const getFirstAlphabeticChar = (term: string): string => {
-  const cleaned = term.replace(/[^a-zA-Z]/g, '');
-  return cleaned.charAt(0).toUpperCase() || '#';
-};
-
-export const LexiconExplorer: React.FC<LexiconExplorerProps> = ({
-  initialSearchQuery = '',
-  onSelectTermForDecode,
-  onSelectTermForReport,
-}) => {
-  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
-  const [activeLetter, setActiveLetter] = useState<string | null>(null);
-  const [copiedItem, setCopiedItem] = useState<string | null>(null);
-  const [showMuteListModal, setShowMuteListModal] = useState(false);
-  const [showReportTermModal, setShowReportTermModal] = useState(false);
-
-  const letterRefs = useRef<Record<string, HTMLDivElement | null>>({});
-
-  const [communityTerms, setCommunityTerms] = useState<CommunityReportedTerm[]>(() => {
-    try {
-      return JSON.parse(localStorage.getItem('presence_community_terms') || '[]');
-    } catch {
-      return [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coded Online Language</title>
+  <style>
+    /* Base Reset & Fonts */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-  });
 
-  const handleTermSubmitted = (newTerm: CommunityReportedTerm) => {
-    setCommunityTerms((prev) => [newTerm, ...prev]);
-  };
+    body {
+      background-color: #FFFFFF;
+      color: #123354;
+      padding: 24px 16px;
+    }
 
-  const handleCopy = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedItem(id);
-    setTimeout(() => setCopiedItem(null), 2000);
-  };
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-  // Filter and sort items alphabetically ignoring quotes
-  const filteredItems = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-    return KICTANET_LEXICON
-      .filter((item) => {
-        if (!query) return true;
+    /* Section Header */
+    .header-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #123354;
+      background: #EBF2FA;
+      border: 1px solid #D0E1F4;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+
+    h1.section-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #123354;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    p.section-sub {
+      font-size: 15px;
+      color: #5B6472;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      max-width: 750px;
+    }
+
+    /* Dictionary Container Card */
+    .dict-card {
+      background-color: #F4F6F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 28px;
+      padding: 24px;
+    }
+
+    /* Top Controls Box */
+    .controls-panel {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .index-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5B6472;
+      margin-bottom: 10px;
+    }
+
+    /* A-Z Alphabet Navigation */
+    .alphabet-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .letter-pill {
+      min-width: 36px;
+      height: 36px;
+      padding: 0 8px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid #D0E1F4;
+      background-color: #EBF2FA;
+      color: #123354;
+      transition: all 0.15s ease;
+    }
+
+    .letter-pill:hover {
+      background-color: #123354;
+      color: #FFFFFF;
+      border-color: #123354;
+    }
+
+    .letter-pill.disabled {
+      background-color: transparent;
+      color: #CBD5E1;
+      border-color: transparent;
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+
+    /* Live Search Input */
+    .search-wrap {
+      position: relative;
+      margin-top: 10px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #FFFFFF;
+      color: #123354;
+      border: 1px solid #D0E1F4;
+      border-radius: 9999px;
+      padding: 12px 18px 12px 42px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: #123354;
+      box-shadow: 0 0 0 3px rgba(18, 51, 84, 0.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 14px;
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #123354;
+      stroke-width: 2.2;
+    }
+
+    /* Letter Bucket Section */
+    .letter-section {
+      margin-bottom: 28px;
+      scroll-margin-top: 24px;
+    }
+
+    .letter-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      border-bottom: 2px solid rgba(18, 51, 84, 0.15);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .letter-char {
+      font-size: 32px;
+      font-weight: 800;
+      color: #123354;
+    }
+
+    .letter-count {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #5B6472;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    /* Entries List */
+    .entries-box {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .entry-row {
+      padding: 18px 20px;
+      border-bottom: 1px solid #E2E8F0;
+      transition: background 0.15s ease;
+    }
+
+    .entry-row:last-child {
+      border-bottom: none;
+    }
+
+    .entry-row:hover {
+      background: #FAFBFD;
+    }
+
+    .entry-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      margin-bottom: 8px;
+    }
+
+    .entry-term {
+      font-size: 18px;
+      font-weight: 800;
+      color: #123354;
+    }
+
+    .entry-translation {
+      font-size: 13px;
+      font-style: italic;
+      color: #5B6472;
+    }
+
+    /* Category Badges */
+    .badges-group {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    /* Badges Color System */
+    .badge-harassment {
+      background-color: #EBF2FA;
+      color: #123354;
+      border-color: #D0E1F4;
+    }
+    .badge-doxxing {
+      background-color: #FFF4D9;
+      color: #946B00;
+      border-color: #F6E0A4;
+    }
+    .badge-coercion {
+      background-color: #E1F6EA;
+      color: #127A47;
+      border-color: #BAE9CD;
+    }
+    .badge-threat {
+      background-color: #FBEAE7;
+      color: #B0402F;
+      border-color: #F6C6BE;
+    }
+
+    /* Entry Content */
+    .entry-desc {
+      font-size: 14px;
+      color: #5B6472;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .entry-nuance {
+      font-size: 12px;
+      color: #475569;
+      background: #F4F6F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .entry-example {
+      font-size: 12px;
+      color: #5B6472;
+      margin-top: 6px;
+    }
+
+    .example-tag {
+      background: #EBF2FA;
+      color: #123354;
+      font-family: monospace;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .empty-state {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 40px 20px;
+      text-align: center;
+      color: #5B6472;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- 1. Header -->
+    <div class="header-tag">Coded Online Language</div>
+    <h1 class="section-title">Slang built to slip past moderators — not past you.</h1>
+    <p class="section-sub">
+      Explore documented coded words, disguised phrases, and online slang used in Kenya's digital spaces to evade safety filters, facilitate harassment, or demean targets.
+    </p>
+
+    <!-- 2. Main Dictionary Card -->
+    <div class="dict-card">
+      
+      <!-- Top Controls: A-Z Nav + Search -->
+      <div class="controls-panel">
+        <div class="index-title">Alphabetical Index (A–Z)</div>
+        <div class="alphabet-row" id="alphabetNav"></div>
+
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="lexiconSearch" class="search-input" placeholder="Search by slang term, meaning, cultural context, or category..." />
+        </div>
+      </div>
+
+      <!-- 3. Entries Container -->
+      <div id="lexiconContent"></div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Full Lexicon Dataset
+    const LEXICON_DATA = [
+      {
+        id: 'asalimiwe',
+        term: 'Asalimiwe',
+        translation: 'Let them be greeted',
+        category: 'Threat / Incitement',
+        badgeType: 'threat',
+        desc: 'Originally an innocuous Swahili greeting. Online, it is weaponized as a directive to launch cyberbullying, doxxing, or mass targeted harassment against a specific individual.',
+        nuance: 'Signaling phrase used to activate digital mob attacks and brigade comment sections.',
+        example: 'Huyu amezidi, leo lazima asalimiwe.'
+      },
+      {
+        id: 'chuma-ya-doshi',
+        term: 'Chuma ya doshi',
+        translation: 'Steel of Doshi',
+        category: 'Sexism & Misogyny',
+        badgeType: 'harassment',
+        desc: 'Originates from an advertising campaign by a steel manufacturing firm. Deployed online to vulgarize male anatomy or assert sexual dominance over women.',
+        nuance: 'Promotes toxic masculinity and objectification in comment sections and DMs.',
+        example: 'Madem hawataki chuma ya doshi wanataka chuma ya mdosi.'
+      },
+      {
+        id: 'dust',
+        term: 'Dust / Kudustishwa',
+        translation: 'To face harsh heartbreak / humiliation',
+        category: 'Cyberbullying & Harassment',
+        badgeType: 'harassment',
+        desc: 'Modern Kenyan digital slang referencing emotional devastation, relationship breakdown, or public humiliation.',
+        nuance: 'Used in public pile-ons to mock people experiencing intimate distress or betrayal.',
+        example: 'Huko nje ni dust tu.'
+      },
+      {
+        id: 'kamati',
+        term: 'Kamati ya roho chafu',
+        translation: 'Committee of malicious hearts',
+        category: 'Online Mob Violence',
+        badgeType: 'threat',
+        desc: 'Used to designate coordinated networks of online trolls and accounts dedicated to mass smear campaigns.',
+        nuance: 'Weaponized to coordinate harassment, circulate unverified claims, and attack women in public life.',
+        example: 'Kamati ya roho chafu imeingia kwa comments zake.'
+      },
+      {
+        id: 'kugongewa',
+        term: 'Kugongewa',
+        translation: 'To be cheated on',
+        category: 'Slut Shaming & Harassment',
+        badgeType: 'harassment',
+        desc: 'Derived from the verb "gonga" (to hit). Weaponized online to publicize allegations of infidelity and demean women\'s sexual agency.',
+        nuance: 'Commonly used to initiate slut-shaming threads and reputation damage campaigns.',
+        example: 'Kugongewa alafu manzi yako akushow we are done.'
+      },
+      {
+        id: 'kulana',
+        term: 'Kulana',
+        translation: 'To consume / engage in illicit encounters',
+        category: 'Coercion & Sexual Objectification',
+        badgeType: 'coercion',
+        desc: 'Reduces human relationships to predatory transactional consumption.',
+        nuance: 'Deployed in gossip threads to insinuate sexual exploitation or moral compromise.',
+        example: 'Hao wawili wanakulana chini ya maji.'
+      },
+      {
+        id: 'msenge',
+        term: 'Msenge',
+        translation: 'Homophobic slur',
+        category: 'Threat / Incitement',
+        badgeType: 'threat',
+        desc: 'Deeply derogatory term weaponized to demean, emasculate, and incite harassment against individuals online.',
+        nuance: 'Violates platform hate-speech guidelines across Meta, X, and TikTok.',
+        example: 'Msenge wewe.'
+      },
+      {
+        id: 'mteremko',
+        term: 'Mteremko',
+        translation: 'Slope / Easy route',
+        category: 'Sexism & Misogyny',
+        badgeType: 'harassment',
+        desc: 'Used to demean women by asserting their professional or financial achievements were achieved through sexual favors.',
+        nuance: 'Delegitimizes women in leadership, corporate spheres, and politics.',
+        example: 'Alipata hiyo job kwa mteremko tu.'
+      },
+      {
+        id: 'pochi',
+        term: 'Pochi',
+        translation: 'Purse / Handbag',
+        category: 'Sexual Objectification',
+        badgeType: 'doxxing',
+        desc: 'Equates female autonomy and anatomy to commercial commodities or transactional exchange.',
+        nuance: 'Reduces women\'s opinions and careers to transactional sexuality.',
+        example: 'Waonyeshe penye utapeleka pochi yako.'
+      },
+      {
+        id: 'submissive',
+        term: 'Submissive',
+        translation: 'Unquestioning obedience',
+        category: 'Silencing & Gaslighting',
+        badgeType: 'harassment',
+        desc: 'Weaponized online to demand subservience and silence women speaking on rights or autonomy.',
+        nuance: 'Used to police women\'s tone and shame independent viewpoints.',
+        example: 'Women should just be submissive.'
+      },
+      {
+        id: 'umama',
+        term: 'Umama',
+        translation: 'Womanlike / Effeminate (pejorative)',
+        category: 'Sexism & Misogyny',
+        badgeType: 'harassment',
+        desc: 'Derived from "mama" (mother). Pejoratively projects feminine attributes as synonyms for weakness, gossiping, or emotional volatility.',
+        nuance: 'Reinforces misogyny by weaponizing womanhood as an insult.',
+        example: 'Na huku mkona umama sana.'
+      },
+      {
+        id: 'umbwa',
+        term: 'Umbwa / Mbwa',
+        translation: 'Dog',
+        category: 'Cyberbullying & Harassment',
+        badgeType: 'harassment',
+        desc: 'Direct verbal abuse used to dehumanize targets and demean their personal integrity.',
+        nuance: 'Frequent trigger term for automated reporting under verbal abuse policies.',
+        example: 'Kama unadate we ni mbwa.'
+      }
+    ];
+
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    function getFirstChar(str) {
+      const clean = str.replace(/[^a-zA-Z]/g, '');
+      return (clean.charAt(0) || '#').toUpperCase();
+    }
+
+    function renderAlphabetNav(activeLetters) {
+      const nav = document.getElementById('alphabetNav');
+      nav.innerHTML = '';
+
+      ALPHABET.forEach(letter => {
+        const hasEntries = activeLetters.has(letter);
+        const pill = document.createElement(hasEntries ? 'a' : 'span');
+        pill.textContent = letter;
+        pill.className = `letter-pill ${hasEntries ? '' : 'disabled'}`;
+        if (hasEntries) {
+          pill.href = `#letter-${letter}`;
+          pill.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(`letter-${letter}`);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        }
+        nav.appendChild(pill);
+      });
+    }
+
+    function renderLexicon(query = '') {
+      const q = query.trim().toLowerCase();
+      const content = document.getElementById('lexiconContent');
+      content.innerHTML = '';
+
+      // Filter and sort
+      const filtered = LEXICON_DATA.filter(item => {
+        if (!q) return true;
         return (
-          item.term.toLowerCase().includes(query) ||
-          item.directTranslation.toLowerCase().includes(query) ||
-          item.culturalContext.toLowerCase().includes(query) ||
-          item.nuance.toLowerCase().includes(query) ||
-          item.classification.some((c) => c.toLowerCase().includes(query)) ||
-          item.exampleKiswahili.toLowerCase().includes(query) ||
-          item.exampleEnglish.toLowerCase().includes(query)
+          item.term.toLowerCase().includes(q) ||
+          item.translation.toLowerCase().includes(q) ||
+          item.desc.toLowerCase().includes(q) ||
+          item.category.toLowerCase().includes(q) ||
+          (item.nuance && item.nuance.toLowerCase().includes(q))
         );
-      })
-      .sort((a, b) => {
+      }).sort((a, b) => {
         const cleanA = a.term.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
         const cleanB = b.term.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
         return cleanA.localeCompare(cleanB);
       });
-  }, [searchQuery]);
 
-  // Group items into letter buckets (A, B, C...)
-  const groupedItems = useMemo(() => {
-    const groups: Record<string, LexiconItem[]> = {};
-    ALPHABET.forEach((letter) => {
-      groups[letter] = [];
-    });
+      // Group by letter
+      const groups = {};
+      const activeLetters = new Set();
 
-    filteredItems.forEach((item) => {
-      const char = getFirstAlphabeticChar(item.term);
-      if (groups[char]) {
-        groups[char].push(item);
-      } else {
-        if (!groups['#']) groups['#'] = [];
-        groups['#'].push(item);
+      filtered.forEach(item => {
+        const letter = getFirstChar(item.term);
+        activeLetters.add(letter);
+        if (!groups[letter]) groups[letter] = [];
+        groups[letter].push(item);
+      });
+
+      renderAlphabetNav(activeLetters);
+
+      if (filtered.length === 0) {
+        content.innerHTML = `<div class="empty-state">No matching coded language entries found for "${query}".</div>`;
+        return;
       }
-    });
 
-    return groups;
-  }, [filteredItems]);
+      // Render each letter section
+      ALPHABET.forEach(letter => {
+        const items = groups[letter];
+        if (!items || items.length === 0) return;
 
-  // All entries counts (unfiltered) to determine enabled A-Z buttons
-  const allLetterCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    ALPHABET.forEach((l) => (counts[l] = 0));
-    KICTANET_LEXICON.forEach((item) => {
-      const char = getFirstAlphabeticChar(item.term);
-      if (counts[char] !== undefined) {
-        counts[char]++;
-      }
-    });
-    return counts;
-  }, []);
+        const section = document.createElement('div');
+        section.className = 'letter-section';
+        section.id = `letter-${letter}`;
 
-  // Jump to letter anchor with smooth scroll
-  const handleLetterClick = (letter: string) => {
-    setActiveLetter(letter);
-    const targetElement = letterRefs.current[letter];
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        section.innerHTML = `
+          <div class="letter-header">
+            <span class="letter-char">${letter}</span>
+            <span class="letter-count">${items.length} ${items.length === 1 ? 'entry' : 'entries'}</span>
+          </div>
+          <div class="entries-box">
+            ${items.map(item => `
+              <div class="entry-row">
+                <div class="entry-top">
+                  <span class="entry-term">${item.term}</span>
+                  <span class="entry-translation">("${item.translation}")</span>
+                  <div class="badges-group">
+                    <span class="badge badge-${item.badgeType}">${item.category}</span>
+                  </div>
+                </div>
+                <div class="entry-desc">${item.desc}</div>
+                ${item.nuance ? `<div class="entry-nuance"><strong>Online weaponization:</strong> ${item.nuance}</div>` : ''}
+                ${item.example ? `<div class="entry-example"><strong>Observed example:</strong> <span class="example-tag">"${item.example}"</span></div>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        content.appendChild(section);
+      });
     }
-  };
 
-  const allTermsCommaSeparated = useMemo(() => {
-    return KICTANET_LEXICON.map((i) => i.term.toLowerCase()).join(', ');
-  }, []);
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderLexicon();
 
-  return (
-    <div className="w-full max-w-6xl mx-auto space-y-6 text-[#123354] font-sans antialiased">
-      
-      {/* 1. SECTION HEADER */}
-      <div className="space-y-2 text-left pt-2 pb-1">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2FA] border border-[#D0E1F4]">
-          <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#123354]">
-            Coded Online Language
-          </span>
-        </div>
-        
-        <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#123354] font-radley">
-          Slang built to slip past moderators — not past you.
-        </h2>
-        
-        <p className="text-sm sm:text-base text-[#5B6472] max-w-3xl leading-relaxed">
-          Explore documented coded words, disguised phrases, and online slang used in Kenya's digital spaces to evade safety filters, facilitate harassment, or demean targets.
-        </p>
-      </div>
-
-      {/* 2. MAIN DICTIONARY CONTAINER CARD */}
-      <div className="bg-[#F4F6F9] border border-[#E2E8F0] rounded-[28px] p-5 sm:p-8 md:p-10 shadow-sm space-y-8">
-        
-        {/* TOP CONTROLS BAR: A–Z JUMP NAV + SEARCH INPUT */}
-        <div className="space-y-5 bg-white/80 backdrop-blur-sm border border-[#E2E8F0] rounded-2xl p-4 sm:p-6 shadow-xs">
-          
-          {/* A–Z Alphabet Navigation Row */}
-          <div>
-            <div className="flex items-center justify-between pb-2.5">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#5B6472]">
-                Alphabetical Index (A–Z)
-              </span>
-              {searchQuery && (
-                <span className="text-xs text-[#123354] font-semibold">
-                  Filtering by: "{searchQuery}"
-                </span>
-              )}
-            </div>
-
-            <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
-              {ALPHABET.map((letter) => {
-                const count = allLetterCounts[letter] || 0;
-                const hasEntriesInFiltered = (groupedItems[letter] || []).length > 0;
-                const hasEntriesOverall = count > 0;
-                const isActive = activeLetter === letter;
-
-                return (
-                  <button
-                    key={letter}
-                    onClick={() => hasEntriesOverall && handleLetterClick(letter)}
-                    disabled={!hasEntriesOverall}
-                    title={hasEntriesOverall ? `${count} entry/entries starting with ${letter}` : `No entries for ${letter}`}
-                    className={`min-w-[32px] sm:min-w-[38px] h-9 sm:h-10 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center cursor-pointer select-none ${
-                      !hasEntriesOverall
-                        ? 'bg-transparent text-slate-300 border border-transparent cursor-not-allowed opacity-40'
-                        : !hasEntriesInFiltered
-                        ? 'bg-[#EBF2FA]/50 text-[#123354]/40 border border-[#D0E1F4]/40 hover:bg-[#123354] hover:text-white'
-                        : isActive
-                        ? 'bg-[#123354] text-white shadow-md shadow-[#123354]/20 scale-105'
-                        : 'bg-[#EBF2FA] text-[#123354] border border-[#D0E1F4] hover:bg-[#123354] hover:text-white hover:border-[#123354]'
-                    }`}
-                  >
-                    {letter}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Search Input Bar (Pill-shaped, white background, subtle border, magnifying-glass icon) */}
-          <div className="relative">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setActiveLetter(null);
-              }}
-              placeholder="Search by slang term, meaning, cultural context, or category..."
-              className="w-full bg-white text-[#123354] placeholder:text-[#5B6472] border border-[#D0E1F4] focus:border-[#123354] focus:ring-3 focus:ring-[#123354]/10 rounded-full pl-12 pr-10 py-3 text-sm font-medium outline-none transition-all shadow-inner"
-            />
-            <Search className="w-4 h-4 text-[#123354] absolute left-4.5 top-3.5" />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="text-[#5B6472] hover:text-[#123354] p-1 absolute right-3.5 top-2.5 cursor-pointer"
-                title="Clear search"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-
-          {/* Utility Action Buttons */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-1 border-t border-[#E2E8F0] text-xs text-[#5B6472]">
-            <div className="flex items-center gap-2">
-              <span>Showing <strong>{filteredItems.length}</strong> of <strong>{KICTANET_LEXICON.length}</strong> coded phrases</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setShowMuteListModal(true)}
-                className="hover:text-[#123354] font-semibold flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-[#EBF2FA] transition cursor-pointer"
-              >
-                <Copy className="w-3.5 h-3.5" />
-                <span>Export Keyword Mute List</span>
-              </button>
-
-              <button
-                onClick={() => setShowReportTermModal(true)}
-                className="bg-[#123354] hover:bg-[#0B2038] text-white font-bold px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer shadow-xs"
-              >
-                <PlusCircle className="w-3.5 h-3.5" />
-                <span>+ Suggest Term</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 3. ALPHABETICAL ENTRIES LIST */}
-        <div className="space-y-10">
-          {filteredItems.length === 0 ? (
-            <div className="bg-white border border-[#E2E8F0] rounded-2xl p-12 text-center space-y-3 shadow-xs">
-              <p className="text-lg font-bold text-[#123354]">No matching terms found</p>
-              <p className="text-sm text-[#5B6472] max-w-md mx-auto">
-                No entries match your search query "{searchQuery}". Try searching for another keyword or clear the search input.
-              </p>
-              <button
-                onClick={() => setSearchQuery('')}
-                className="bg-[#123354] text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#0B2038] transition cursor-pointer"
-              >
-                Reset Search
-              </button>
-            </div>
-          ) : (
-            ALPHABET.map((letter) => {
-              const itemsInLetter = groupedItems[letter] || [];
-              if (itemsInLetter.length === 0) return null;
-
-              return (
-                <div
-                  key={letter}
-                  ref={(el) => (letterRefs.current[letter] = el)}
-                  className="space-y-4 scroll-mt-24"
-                >
-                  {/* Bold Letter Header (A, B, C, D...) */}
-                  <div className="flex items-center gap-3 border-b-2 border-[#123354]/20 pb-2">
-                    <span className="text-3xl sm:text-4xl font-extrabold text-[#123354] font-radley tracking-tight">
-                      {letter}
-                    </span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#5B6472] bg-white px-2.5 py-0.5 rounded-full border border-[#E2E8F0]">
-                      {itemsInLetter.length} {itemsInLetter.length === 1 ? 'entry' : 'entries'}
-                    </span>
-                  </div>
-
-                  {/* Entries grouped under this letter */}
-                  <div className="bg-white border border-[#E2E8F0] rounded-2xl divide-y divide-[#E2E8F0] shadow-xs overflow-hidden">
-                    {itemsInLetter.map((item) => {
-                      return (
-                        <div
-                          key={item.id}
-                          className="p-4 sm:p-6 hover:bg-[#FAFBFD] transition-colors space-y-2.5"
-                        >
-                          {/* Top Row: Term in bold + category badges + action buttons */}
-                          <div className="flex flex-wrap items-center justify-between gap-2">
-                            <div className="flex flex-wrap items-center gap-2.5">
-                              {/* The Term in bold display typography */}
-                              <span className="text-lg sm:text-xl font-extrabold text-[#123354] font-radley tracking-tight">
-                                {item.term}
-                              </span>
-
-                              {/* Direct Meaning Subtext */}
-                              {item.directTranslation && (
-                                <span className="text-xs font-semibold text-[#5B6472] italic">
-                                  ("{item.directTranslation}")
-                                </span>
-                              )}
-
-                              {/* Category Badges with customized styling */}
-                              <div className="flex flex-wrap gap-1.5">
-                                {item.classification.map((cat, idx) => {
-                                  const style = getCategoryBadgeStyle(cat);
-                                  return (
-                                    <span
-                                      key={idx}
-                                      className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${style.bg} ${style.text} ${style.border}`}
-                                    >
-                                      {cat}
-                                    </span>
-                                  );
-                                })}
-                              </div>
-                            </div>
-
-                            {/* Utility actions */}
-                            <div className="flex items-center gap-1.5 shrink-0">
-                              {onSelectTermForDecode && (
-                                <button
-                                  onClick={() => onSelectTermForDecode(item.term)}
-                                  className="text-xs text-[#123354] hover:bg-[#EBF2FA] font-bold px-2.5 py-1 rounded-lg border border-[#D0E1F4] transition flex items-center gap-1 cursor-pointer"
-                                  title="Analyze in Decoder"
-                                >
-                                  <Sparkles className="w-3.5 h-3.5 text-[#123354]" />
-                                  <span>Decode</span>
-                                </button>
-                              )}
-
-                              <button
-                                onClick={() => handleCopy(item.term, item.id)}
-                                className="text-slate-400 hover:text-[#123354] p-1.5 rounded-lg hover:bg-[#EBF2FA] transition cursor-pointer"
-                                title="Copy term"
-                              >
-                                {copiedItem === item.id ? (
-                                  <Check className="w-4 h-4 text-emerald-600" />
-                                ) : (
-                                  <Copy className="w-4 h-4" />
-                                )}
-                              </button>
-                            </div>
-                          </div>
-
-                          {/* Definition & Cultural Context in muted gray text */}
-                          <div className="space-y-1.5">
-                            <p className="text-sm text-[#5B6472] leading-relaxed">
-                              {item.culturalContext}
-                            </p>
-
-                            {item.nuance && (
-                              <p className="text-xs text-[#5B6472]/90 leading-relaxed bg-[#F4F6F9] p-2.5 rounded-xl border border-[#E2E8F0]">
-                                <strong className="text-[#123354] font-bold">Online weaponization: </strong>
-                                {item.nuance}
-                              </p>
-                            )}
-
-                            {/* Usage example */}
-                            {item.exampleKiswahili && (
-                              <div className="text-xs text-[#5B6472] pt-1 flex flex-wrap items-center gap-1.5">
-                                <span className="font-semibold text-[#123354]">Observed example:</span>
-                                <code className="bg-[#EBF2FA] text-[#123354] px-2 py-0.5 rounded font-mono text-[11px]">
-                                  "{item.exampleKiswahili}"
-                                </code>
-                                <span className="text-[11px] text-[#5B6472] italic">
-                                  ({item.exampleEnglish})
-                                </span>
-                              </div>
-                            )}
-
-                            {/* Platforms where observed */}
-                            {item.platforms && item.platforms.length > 0 && (
-                              <div className="text-[11px] text-[#5B6472] pt-0.5">
-                                <span className="font-semibold text-[#123354]">Frequently found on: </span>
-                                {item.platforms.join(', ')}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })
-          )}
-        </div>
-
-      </div>
-
-      {/* Community Suggested Terms Feed */}
-      {communityTerms.length > 0 && (
-        <div className="bg-[#F4F6F9] border border-[#E2E8F0] rounded-[28px] p-6 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-[#123354] uppercase tracking-wider flex items-center gap-2">
-              <span>Community Suggested Terms ({communityTerms.length})</span>
-            </h3>
-            <button
-              onClick={() => setShowReportTermModal(true)}
-              className="text-xs text-[#123354] hover:underline font-bold cursor-pointer"
-            >
-              + Submit Another Term
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {communityTerms.map((ct) => (
-              <div
-                key={ct.id}
-                className="bg-white border border-[#E2E8F0] rounded-2xl p-4 space-y-2 shadow-xs"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-sm text-[#123354]">"{ct.term}"</span>
-                  <span className="text-[10px] font-bold bg-[#EBF2FA] text-[#123354] px-2 py-0.5 rounded-full border border-[#D0E1F4]">
-                    {ct.platformUsed}
-                  </span>
-                </div>
-                <p className="text-xs text-[#5B6472] leading-relaxed">
-                  {ct.suggestedMeaning}
-                </p>
-                <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-[#E2E8F0]">
-                  <span className="text-[#123354] font-semibold">{ct.category}</span>
-                  <span>{new Date(ct.timestamp).toLocaleDateString()}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Export Keyword Mute Filter List Modal */}
-      {showMuteListModal && (
-        <div className="fixed inset-0 z-50 bg-[#123354]/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-[#E2E8F0] rounded-[28px] max-w-xl w-full p-6 sm:p-8 space-y-5 shadow-2xl text-[#123354]">
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#123354] font-radley">
-                  Export Keyword Mute Filter List
-                </h3>
-                <p className="text-xs text-[#5B6472] mt-1">
-                  Copy this list directly into TikTok, Instagram, X (Twitter), or Facebook hidden words filter.
-                </p>
-              </div>
-              <button
-                onClick={() => setShowMuteListModal(false)}
-                className="text-slate-400 hover:text-[#123354] p-1 rounded-lg cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <textarea
-              readOnly
-              rows={6}
-              value={allTermsCommaSeparated}
-              className="w-full bg-[#F4F6F9] text-[#123354] border border-[#D0E1F4] rounded-2xl p-4 font-mono text-xs outline-none focus:border-[#123354]"
-            />
-
-            <div className="flex items-center justify-between pt-2">
-              <button
-                onClick={() => handleCopy(allTermsCommaSeparated, 'all-terms')}
-                className="bg-[#123354] hover:bg-[#0B2038] text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-sm transition"
-              >
-                {copiedItem === 'all-terms' ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-                <span>{copiedItem === 'all-terms' ? 'Copied to Clipboard!' : 'Copy All 70+ Terms'}</span>
-              </button>
-
-              <button
-                onClick={() => setShowMuteListModal(false)}
-                className="bg-[#F4F6F9] hover:bg-[#EBF2FA] text-[#123354] text-xs font-bold px-4 py-2 rounded-xl cursor-pointer transition border border-[#D0E1F4]"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Report Coded Language Modal */}
-      <ReportCodedLanguageModal
-        isOpen={showReportTermModal}
-        onClose={() => setShowReportTermModal(false)}
-        onTermSubmitted={handleTermSubmitted}
-      />
-
-    </div>
-  );
-};
+      const searchInput = document.getElementById('lexiconSearch');
+      searchInput.addEventListener('input', (e) => {
+        renderLexicon(e.target.value);
+      });
+    });
+  </script>
+</body>
+</html>
