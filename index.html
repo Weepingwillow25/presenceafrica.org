@@ -6,12 +6,12 @@
   <title>Presence — Digital Safety & Anti-Harassment Platform</title>
   <meta name="description" content="Kenya's dedicated platform to decode coded online violence, understand veiled Sheng slangs, navigate platform takedown mechanisms, and secure admissible evidence." />
 
-  <!-- Google Fonts: Space Grotesk & Plus Jakarta Sans & JetBrains Mono -->
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS & Lucide Icons -->
+  <!-- Tailwind CSS & Lucide Icons via CDN (Self-contained, no build steps required) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -77,7 +77,7 @@
   <!-- ================= 1. PUBLIC VISITOR SITE ================= -->
   <div id="publicSiteView" class="flex flex-col min-h-screen">
     
-    <!-- STICKY HELPLINE STRIP -->
+    <!-- STICKY HELPLINE STRIP (NAVY & GOLD) -->
     <div class="bg-[#123354] text-white py-2 px-4 sticky top-0 z-50 text-xs sm:text-[13px] font-medium border-b border-[#0B2038]/50 select-none">
       <div class="max-w-7xl mx-auto flex items-center justify-center flex-wrap gap-x-6 gap-y-1 text-center">
         <a href="tel:1195" class="inline-flex items-center gap-1.5 hover:text-[#FFC53D] transition-colors">
@@ -121,9 +121,9 @@
           <a href="#evidence" class="hover:text-[#123354] transition-colors py-1">Evidence Studio</a>
         </nav>
 
-        <!-- Emergency Action CTA & Quick Suggest CTA -->
+        <!-- CTAs -->
         <div class="flex items-center gap-3">
-          <a href="#lexicon" onclick="focusSuggestBox()" class="hidden sm:inline-flex bg-[#E8EEF5] text-[#123354] hover:bg-[#D9E3F0] border border-[#123354]/20 px-4 py-2.5 rounded-full text-xs font-bold tracking-wide transition items-center gap-1.5 cursor-pointer">
+          <a href="#lexicon" onclick="focusSuggestBox()" class="hidden sm:inline-flex bg-[#FFF7ED] text-[#EA580C] hover:bg-[#FFEDD5] border border-[#F97316]/40 px-4 py-2 rounded-full text-xs font-bold tracking-wide transition items-center gap-1.5 cursor-pointer">
             <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-[#F97316]"></i>
             <span>Suggest addition</span>
           </a>
@@ -136,7 +136,7 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section class="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28 border-b border-[rgba(17,20,23,0.06)] bg-white">
+    <section class="relative overflow-hidden pt-16 pb-16 md:pt-20 md:pb-24 border-b border-[rgba(17,20,23,0.06)] bg-white">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
         
         <h1 class="font-heading font-bold text-4xl sm:text-6xl lg:text-7xl text-[#111417] tracking-tight leading-[1.08] max-w-4xl">
@@ -148,318 +148,1421 @@
           Kenya’s dedicated platform to decode coded online violence, understand veiled Sheng slangs, navigate platform takedown mechanisms, and secure admissible evidence.
         </p>
 
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-4 w-full sm:w-auto">
-          <a href="#decoder" class="w-full sm:w-auto text-center bg-[#123354] text-white hover:bg-[#0B2038] px-8 py-4 rounded-full text-sm font-bold tracking-wide btn-lift flex items-center justify-center gap-2 shadow-sm">
-            <span>Scan a message</span>
-            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="#lexicon" class="bg-[#123354] text-white hover:bg-[#0B2038] px-8 py-4 rounded-full font-bold text-sm sm:text-base btn-lift flex items-center gap-2 shadow-sm">
+            <span>Explore Coded Language</span>
+            <i data-lucide="arrow-down" class="w-4 h-4 text-[#FFC53D]"></i>
           </a>
-
-          <a href="#lexicon" class="w-full sm:w-auto text-center border border-[rgba(17,20,23,0.18)] hover:border-[#123354] text-[#111417] hover:bg-[#F4F6F9] px-7 py-4 rounded-full text-sm font-semibold transition flex items-center justify-center gap-2">
-            <i data-lucide="book-open" class="w-4 h-4 text-[#123354]"></i>
-            <span>Browse Coded Language</span>
+          <a href="#decoder" class="bg-[#F4F6F9] text-[#123354] hover:bg-[#E8EEF5] border border-[#123354]/15 px-8 py-4 rounded-full font-bold text-sm sm:text-base transition flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-[#123354]"></i>
+            <span>AI Language Scanner</span>
           </a>
         </div>
-
       </div>
     </section>
 
-    <!-- CODED LANGUAGE LEXICON SECTION -->
-    <section id="lexicon" class="py-16 md:py-24 bg-white scroll-mt-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Section Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-          <div class="max-w-3xl">
-            <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#123354] mb-2 block font-heading">
-              Coded Online Language
-            </span>
-            <h2 class="font-heading font-bold text-3xl sm:text-4xl text-[#111417] tracking-tight leading-tight">
-              Slang built to slip past moderators, not past you.
+    <!-- ================= 2. STRATEGIC "SUGGEST AN ADDITION" SECTION (ORANGE BOX) ================= -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
+      <div class="bg-gradient-to-br from-[#FFF7ED] via-white to-[#FFF7ED] border-2 border-[#F97316] rounded-[28px] p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          
+          <div class="space-y-1.5 max-w-xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EA580C] text-white text-xs font-bold tracking-wide uppercase">
+              <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+              <span>Community Contribution</span>
+            </div>
+            <h2 class="font-heading font-bold text-xl sm:text-2xl text-[#111417] tracking-tight">
+              Encountered a new coded phrase or Sheng slang?
             </h2>
-            <p class="mt-3 text-[#5B6472] text-base leading-relaxed">
-              Perpetrators weaponize Sheng, colloquial Kiswahili, and euphemisms to evade algorithmic censorship. Access Kenya’s documented index of coded terms, cultural nuances, and statutory definitions.
+            <p class="text-xs sm:text-sm text-[#5B6472] leading-relaxed">
+              Help keep Kenyan digital spaces safe. Submit coded terms used in harassment or doxxing for curator assessment and addition to our database.
             </p>
           </div>
 
-          <button onclick="openSuggestModal()" class="self-start md:self-auto bg-[#123354] hover:bg-[#0B2038] text-white px-5 py-3 rounded-full text-xs sm:text-sm font-bold tracking-wide btn-lift flex items-center gap-2 shadow-sm transition shrink-0 cursor-pointer">
-            <i data-lucide="plus-circle" class="w-4 h-4 text-[#F97316]"></i>
-            <span>Suggest an addition</span>
-          </button>
-        </div>
-
-        <!-- CO-CREATION SPACE (ORANGE INPUT BOX & ANONYMOUS SUGGESTION) -->
-        <div id="suggestAdditionBox" class="mb-8 bg-white border border-[rgba(17,20,23,0.12)] rounded-[24px] sm:rounded-[30px] p-6 sm:p-8 shadow-sm relative overflow-hidden">
-          
-          <div class="relative z-10 max-w-4xl">
-            
-            <div class="flex items-center gap-2 mb-2">
-              <span class="bg-[#FFF7ED] text-[#EA580C] border border-[#F97316]/40 text-[11px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-2xs">
-                Co-Creation Space
-              </span>
-              <span class="text-xs font-bold text-[#123354]">
-                Help expand Kenya's digital safety dictionary
-              </span>
-            </div>
-
-            <h3 class="font-heading font-bold text-xl sm:text-2xl text-[#111417] tracking-tight">
-              Have you noticed new coded words or slang being used online?
-            </h3>
-            
-            <p class="text-xs sm:text-sm text-[#5B6472] mt-1.5 mb-5 max-w-3xl leading-relaxed">
-              Online abusers regularly invent new Sheng slang and euphemisms on TikTok, X, WhatsApp, and Instagram to harass targets without triggering moderation filters. Type a term below to suggest an addition.
-            </p>
-
+          <!-- Quick Submission Form -->
+          <div class="w-full lg:w-auto lg:min-w-[480px]">
             <form onsubmit="handleQuickSuggest(event)" class="space-y-3">
-              <div class="flex flex-col sm:flex-row items-stretch gap-3">
+              <div class="flex flex-col sm:flex-row gap-2">
                 <div class="relative flex-1">
                   <input
-                    id="quickSuggestInput"
                     type="text"
+                    id="quickSuggestInput"
+                    placeholder="Type slang / phrase here (e.g. 'Kuvutwa wire')..."
                     required
-                    placeholder="Type the slang term or coded phrase here (e.g. 'Kupimwa mafuta', 'Kuoshwa')..."
-                    class="w-full bg-white text-[#111417] placeholder-[#EA580C]/60 text-sm sm:text-base font-semibold px-5 py-4 rounded-2xl sm:rounded-full border-2 border-[#F97316] focus:outline-none focus:ring-4 focus:ring-[#F97316]/25 focus:border-[#EA580C] shadow-inner transition"
+                    class="w-full bg-white text-[#111417] placeholder-[#5B6472]/60 px-4 py-3.5 rounded-2xl border-2 border-[#F97316] text-sm font-medium focus:outline-none focus:ring-4 focus:ring-[#F97316]/20 transition shadow-inner"
                   />
-                  <button
-                    type="button"
-                    onclick="document.getElementById('quickSuggestInput').value=''"
-                    class="absolute right-4 top-4 text-[#EA580C] hover:text-[#9A3412] p-1 cursor-pointer"
-                    title="Clear"
-                  >
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                  </button>
                 </div>
-
                 <button
                   type="submit"
-                  class="bg-[#F97316] hover:bg-[#EA580C] text-white px-7 py-4 rounded-2xl sm:rounded-full text-sm font-bold tracking-wide btn-lift flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition cursor-pointer shrink-0 active:scale-95"
+                  class="bg-[#F97316] hover:bg-[#EA580C] text-white font-bold px-6 py-3.5 rounded-2xl text-sm transition btn-lift flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-sm"
                 >
-                  <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                  <span>Suggest an addition</span>
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  <span>Suggest</span>
                 </button>
               </div>
 
-              <div class="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs text-[#5B6472]">
-                <div class="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onclick="toggleQuickTranslationField()"
-                    class="hover:underline font-semibold flex items-center gap-1 cursor-pointer text-[#123354]"
-                  >
-                    <span id="toggleTranslationLabel">+ Add direct meaning / translation</span>
-                  </button>
-                  <span>•</span>
-                  <button
-                    type="button"
-                    onclick="openSuggestModalWithPrefill()"
-                    class="hover:underline font-semibold cursor-pointer text-[#123354]"
-                  >
-                    Open full suggestion form (platform, category, context)
-                  </button>
-                </div>
-                <span class="text-[#5B6472]/80 italic">Anonymous curation queue · Zero personal data</span>
+              <!-- Collapsible meaning input -->
+              <div id="inlineTranslationContainer" class="hidden animate-fade-in">
+                <input
+                  type="text"
+                  id="quickSuggestTranslation"
+                  placeholder="Optional: Direct meaning or literal translation..."
+                  class="w-full bg-white text-[#111417] placeholder-[#5B6472]/60 px-4 py-2.5 rounded-xl border border-[#F97316]/40 text-xs focus:outline-none focus:border-[#F97316]"
+                />
               </div>
 
-              <div id="inlineTranslationContainer" class="hidden pt-2">
-                <input
-                  id="quickSuggestTranslation"
-                  type="text"
-                  placeholder="Direct translation / literal meaning (e.g. 'To measure someone's oil levels')"
-                  class="w-full bg-[#F4F6F9] text-[#111417] placeholder-[#5B6472]/60 text-sm px-4 py-3 rounded-xl border border-[rgba(17,20,23,0.12)] focus:outline-none focus:border-[#123354] transition"
-                />
+              <div class="flex items-center justify-between text-xs text-[#5B6472] px-1">
+                <button
+                  type="button"
+                  onclick="toggleQuickTranslationField()"
+                  class="text-[#EA580C] hover:underline font-semibold cursor-pointer"
+                  id="toggleTranslationLabel"
+                >
+                  + Add direct meaning / translation
+                </button>
+                <button
+                  type="button"
+                  onclick="openSuggestModalWithPrefill()"
+                  class="text-[#123354] hover:underline font-bold flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Detailed submission form</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
             </form>
 
-            <div id="suggestSuccessAlert" class="hidden mt-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs sm:text-sm font-semibold flex items-center gap-3 shadow-xs animate-fade-in">
-              <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600 shrink-0"></i>
-              <span id="suggestSuccessText">Thank you! Your suggestion has been submitted to the curation desk for assessment.</span>
+            <!-- Success Notification Alert -->
+            <div id="suggestSuccessAlert" class="hidden mt-3 p-3 bg-[#E1F6EA] border border-[#1FA96B]/30 rounded-xl text-xs text-[#1FA96B] font-semibold flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 shrink-0"></i>
+              <span id="suggestSuccessText">Thank you! Your suggestion has been sent to our curation desk for assessment.</span>
             </div>
-
-          </div>
-        </div>
-
-        <!-- LEXICON SEARCH & A-Z DIRECTORY CONTAINER -->
-        <div class="bg-[#F4F6F9] rounded-[28px] sm:rounded-[32px] p-6 sm:p-10 border border-[rgba(17,20,23,0.08)] shadow-sm">
-          
-          <!-- Alphabet Selector -->
-          <div id="alphabetFilter" class="flex flex-wrap gap-1.5 mb-6"></div>
-
-          <!-- Search & Filter Controls -->
-          <div class="flex flex-col sm:flex-row gap-4 mb-6">
-            <div class="relative flex-1">
-              <i data-lucide="search" class="w-4 h-4 absolute left-4 top-3.5 text-[#5B6472]"></i>
-              <input
-                id="lexiconSearchInput"
-                type="text"
-                oninput="handleLexiconSearch()"
-                placeholder="Search coded words, literal meanings, or contexts..."
-                class="w-full pl-11 pr-4 py-3 rounded-full bg-white border border-[rgba(17,20,23,0.12)] text-sm focus:outline-none focus:border-[#123354]"
-              />
-            </div>
-            <select
-              id="categoryFilterSelect"
-              onchange="handleCategoryFilter()"
-              class="px-4 py-3 rounded-full bg-white border border-[rgba(17,20,23,0.12)] text-sm font-medium text-[#111417] focus:outline-none focus:border-[#123354]"
-            >
-              <option value="ALL">All Categories</option>
-              <option value="Doxxing">Doxxing & Privacy</option>
-              <option value="Sexual">Coercion & Sexual</option>
-              <option value="Threat">Threats & Mob Attacks</option>
-              <option value="Silencing">Harassment & Silencing</option>
-            </select>
           </div>
 
-          <!-- Term Cards Grid -->
-          <div id="lexiconCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-
         </div>
-
       </div>
     </section>
 
-    <!-- INTERACTIVE DECODER SECTION -->
-    <section id="decoder" class="py-16 md:py-24 bg-[#F4F6F9] border-t border-[rgba(17,20,23,0.06)] scroll-mt-24">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#123354] mb-2 block font-heading">Interactive Scanner</span>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-[#111417]">Message Decoder Studio</h2>
-          <p class="mt-2 text-sm text-[#5B6472]">Paste suspicious comments, DMs, or posts to check for veiled Sheng slang and intimidation patterns.</p>
+    <!-- ================= 3. CODED LANGUAGE LEXICON EXPLORER ================= -->
+    <section id="lexicon" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full scroll-mt-24">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[rgba(17,20,23,0.08)]">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-[#123354] mb-2 flex items-center gap-1.5">
+            <i data-lucide="book-open" class="w-4 h-4 text-[#F97316]"></i>
+            <span>Verified Language Database</span>
+          </div>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-[#111417] tracking-tight">
+            Coded Online Language
+          </h2>
+          <p class="mt-2 text-sm sm:text-base text-[#5B6472] max-w-xl">
+            Sheng slang, veiled threats, and weaponized colloquialisms catalogued across Kenyan digital spaces.
+          </p>
         </div>
 
-        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-[rgba(17,20,23,0.10)] shadow-sm space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="relative min-w-[260px] sm:min-w-[320px]">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#5B6472]"></i>
+            <input
+              type="text"
+              id="lexiconSearchInput"
+              oninput="renderLexicon()"
+              placeholder="Search slangs, nuances, or categories..."
+              class="w-full bg-[#F4F6F9] text-sm pl-10 pr-4 py-3 rounded-full border border-[rgba(17,20,23,0.08)] focus:outline-none focus:border-[#123354] focus:bg-white transition"
+            />
+            <button
+              id="clearSearchBtn"
+              onclick="document.getElementById('lexiconSearchInput').value=''; renderLexicon();"
+              class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#5B6472] hover:text-[#111417]"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- A-Z Alphabet Filter Navigation Bar -->
+      <div class="my-6 py-3 px-4 bg-[#F4F6F9] rounded-2xl border border-[rgba(17,20,23,0.06)] flex items-center justify-between overflow-x-auto no-scrollbar gap-1" id="alphabetContainer">
+        <!-- Generated by JS -->
+      </div>
+
+      <div id="lexiconCount" class="text-xs font-semibold text-[#5B6472] mb-6">
+        <!-- Count shown here -->
+      </div>
+
+      <!-- Lexicon Grid -->
+      <div id="lexiconGrid" class="space-y-8">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ================= 4. REAL-TIME AI LANGUAGE DECODER ================= -->
+    <section id="decoder" class="py-20 bg-[#071626] text-white border-y border-[#123354]/40 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#123354] text-[#FFC53D] text-xs font-bold tracking-wide uppercase mb-3 border border-[#FFC53D]/20">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Real-Time Sheng Threat Scanner</span>
+          </div>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white tracking-tight">
+            Decode Suspicious Online Comments
+          </h2>
+          <p class="mt-3 text-sm text-white/70">
+            Paste social media comments, DM screenshots text, or abusive posts to identify hidden misogynistic or doxxing undertones.
+          </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto bg-[#0B2038] rounded-[28px] p-6 sm:p-8 border border-white/10 shadow-2xl">
           <textarea
-            id="decoderInput"
+            id="decoderTextInput"
             rows="4"
-            oninput="decodeText()"
-            placeholder="Paste text or comments here (e.g., 'Huyu bibi anafaa kupimwa mafuta kwa trending audio...')"
-            class="w-full bg-[#FAFBFD] p-4 rounded-2xl border border-[rgba(17,20,23,0.12)] text-sm focus:outline-none focus:border-[#123354]"
+            placeholder="Paste text here (e.g. 'Naona umekula block ataoshwa leo kwa DM...')"
+            class="w-full bg-[#071626] text-white placeholder-white/40 p-4 rounded-2xl border border-white/10 text-sm focus:outline-none focus:border-[#FFC53D] transition font-sans"
           ></textarea>
 
-          <div id="decoderResults" class="hidden p-4 rounded-2xl bg-[#FFF7ED] border border-[#F97316]/30 text-xs sm:text-sm space-y-2"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- STEP-BY-STEP REPORTING SECTION -->
-    <section id="reporting" class="py-16 md:py-24 bg-white border-t border-[rgba(17,20,23,0.06)] scroll-mt-24">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#123354] mb-2 block font-heading">Platform Takedowns</span>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-[#111417]">How to Report & Escalate Violations</h2>
-          <p class="mt-2 text-sm text-[#5B6472]">Direct reporting steps for TikTok, X, Instagram, Facebook, WhatsApp, and Telegram.</p>
-        </div>
-
-        <div id="platformCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-      </div>
-    </section>
-
-    <!-- EVIDENCE STUDIO SECTION -->
-    <section id="evidence" class="py-16 md:py-24 bg-[#F4F6F9] border-t border-[rgba(17,20,23,0.06)] scroll-mt-24">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-10">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#123354] mb-2 block font-heading">Legal Preservation</span>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-[#111417]">Court-Admissible Evidence Studio</h2>
-          <p class="mt-2 text-sm text-[#5B6472]">Format incident logs compatible with Section 27 of Kenya Computer Misuse and Cybercrimes Act (CMCA).</p>
-        </div>
-
-        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-[rgba(17,20,23,0.10)] shadow-sm space-y-4">
-          <form onsubmit="handleEvidenceSubmit(event)" class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-bold text-[#111417] uppercase mb-1">Target Account / URL</label>
-                <input id="evUrl" type="text" required placeholder="https://tiktok.com/@..." class="w-full bg-[#FAFBFD] p-3 rounded-xl border border-[rgba(17,20,23,0.10)] text-sm" />
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-[#111417] uppercase mb-1">Platform</label>
-                <select id="evPlatform" class="w-full bg-[#FAFBFD] p-3 rounded-xl border border-[rgba(17,20,23,0.10)] text-sm">
-                  <option>TikTok</option>
-                  <option>X (Twitter)</option>
-                  <option>Instagram</option>
-                  <option>WhatsApp</option>
-                  <option>Facebook</option>
-                  <option>Telegram</option>
-                </select>
-              </div>
+          <div class="flex flex-wrap items-center justify-between gap-4 mt-4">
+            <div class="flex items-center gap-2 text-xs text-white/60">
+              <span>Quick test samples:</span>
+              <button onclick="setSample('Umekula block utaoshwa leo')" class="px-2 py-1 bg-white/5 hover:bg-white/10 rounded-md text-white/90 text-[11px] underline">
+                Mob harassment
+              </button>
+              <button onclick="setSample('Leta namba yake tumsalimie kwa WhatsApp')" class="px-2 py-1 bg-white/5 hover:bg-white/10 rounded-md text-white/90 text-[11px] underline">
+                Doxxing
+              </button>
             </div>
-
-            <div>
-              <label class="block text-xs font-bold text-[#111417] uppercase mb-1">Violative Content / Slang Used</label>
-              <textarea id="evContent" rows="3" required placeholder="Describe the incident and paste transcripts or captions..." class="w-full bg-[#FAFBFD] p-3 rounded-xl border border-[rgba(17,20,23,0.10)] text-sm"></textarea>
-            </div>
-
-            <button type="submit" class="w-full bg-[#123354] hover:bg-[#0B2038] text-white py-3.5 rounded-full font-bold text-sm tracking-wide btn-lift">
-              Log Evidence Record
+            
+            <button
+              onclick="scanDecoder()"
+              class="bg-[#F97316] hover:bg-[#EA580C] text-white font-bold px-6 py-3 rounded-full text-xs sm:text-sm transition btn-lift flex items-center gap-2 cursor-pointer shadow-md"
+            >
+              <i data-lucide="search" class="w-4 h-4"></i>
+              <span>Scan Text Now</span>
             </button>
-          </form>
+          </div>
 
-          <div id="evidenceLogList" class="mt-6 space-y-3"></div>
+          <!-- Result Area -->
+          <div id="decoderResult" class="hidden mt-6 pt-6 border-t border-white/10 animate-fade-in">
+            <!-- Results rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 5. REPORTING NAVIGATOR ================= -->
+    <section id="reporting" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full scroll-mt-24">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="text-xs font-bold uppercase tracking-wider text-[#123354] mb-2">Platform Takedowns</div>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-[#111417] tracking-tight">
+          How to Report Harm Across Platforms
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-[#5B6472]">
+          Step-by-step walkthroughs to trigger rapid escalation and preserve accountability.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- TikTok -->
+        <div class="p-6 rounded-[24px] bg-white border border-[rgba(17,20,23,0.08)] card-lift flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-[#000000] text-white flex items-center justify-center mb-4">
+              <i data-lucide="video" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#111417]">TikTok</h3>
+            <p class="text-xs text-[#5B6472] mt-2 leading-relaxed">
+              Report live raids, duet harassment, non-consensual image distribution, and synthetic voice deepfakes.
+            </p>
+          </div>
+          <button onclick="openReportingModal('tiktok')" class="mt-6 text-xs font-bold text-[#123354] hover:text-[#0B2038] flex items-center gap-1 cursor-pointer">
+            <span>View Guide</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="p-6 rounded-[24px] bg-white border border-[rgba(17,20,23,0.08)] card-lift flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-[#25D366] text-white flex items-center justify-center mb-4">
+              <i data-lucide="message-circle" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#111417]">WhatsApp</h3>
+            <p class="text-xs text-[#5B6472] mt-2 leading-relaxed">
+              Export verified chat logs, report group link doxxing, block contact raiders, and trigger DCI escalation.
+            </p>
+          </div>
+          <button onclick="openReportingModal('whatsapp')" class="mt-6 text-xs font-bold text-[#123354] hover:text-[#0B2038] flex items-center gap-1 cursor-pointer">
+            <span>View Guide</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- X (Twitter) -->
+        <div class="p-6 rounded-[24px] bg-white border border-[rgba(17,20,23,0.08)] card-lift flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-[#111417] text-white flex items-center justify-center mb-4">
+              <i data-lucide="twitter" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#111417]">X (Twitter)</h3>
+            <p class="text-xs text-[#5B6472] mt-2 leading-relaxed">
+              Tackle targeted swarm dogpiles, hashtag brigading, unconsented phone leaks, and mass impersonator bots.
+            </p>
+          </div>
+          <button onclick="openReportingModal('x')" class="mt-6 text-xs font-bold text-[#123354] hover:text-[#0B2038] flex items-center gap-1 cursor-pointer">
+            <span>View Guide</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Meta -->
+        <div class="p-6 rounded-[24px] bg-white border border-[rgba(17,20,23,0.08)] card-lift flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-[#0866FF] text-white flex items-center justify-center mb-4">
+              <i data-lucide="share-2" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#111417]">Meta (FB & IG)</h3>
+            <p class="text-xs text-[#5B6472] mt-2 leading-relaxed">
+              Submit intimate image stop requests (StopNCII.org), report impersonation pages, and lock profile access.
+            </p>
+          </div>
+          <button onclick="openReportingModal('meta')" class="mt-6 text-xs font-bold text-[#123354] hover:text-[#0B2038] flex items-center gap-1 cursor-pointer">
+            <span>View Guide</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 6. EVIDENCE STUDIO ================= -->
+    <section id="evidence" class="py-20 bg-[#F4F6F9] border-t border-[rgba(17,20,23,0.08)] scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-[#123354] text-white rounded-[32px] p-8 sm:p-12 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div class="space-y-4 max-w-xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#FFC53D] text-xs font-bold">
+              <i data-lucide="file-check" class="w-3.5 h-3.5"></i>
+              <span>Admissible Evidence Tool</span>
+            </div>
+            <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white tracking-tight">
+              Preserve Verifiable Incident Dossiers
+            </h2>
+            <p class="text-sm text-white/80 leading-relaxed">
+              Export cryptographically timestamped records and formatted incident reports cited under the <strong>Kenya Computer Misuse and Cybercrimes Act (CMCA) Sec 27 & 28</strong>.
+            </p>
+          </div>
+
+          <button onclick="openEvidenceModal()" class="bg-[#FFC53D] hover:bg-[#F0B830] text-[#123354] font-bold px-8 py-4 rounded-full text-sm sm:text-base btn-lift shrink-0 flex items-center gap-2 cursor-pointer shadow-lg">
+            <i data-lucide="shield-alert" class="w-5 h-5"></i>
+            <span>Open Evidence Studio</span>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- FOOTER WITH ADMIN ACCESS -->
-    <footer class="bg-[#123354] text-white py-12 border-t border-[#0B2038]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-white/70">
-        <div>
-          <span class="font-heading font-bold text-white text-base block mb-1">Presence</span>
-          <p>© 2026 Presence Kenya. Empowering digital safety and protecting democratic expression.</p>
+    <!-- ================= 7. FOOTER ================= -->
+    <footer id="emergency" class="bg-[#0B2038] text-white pt-16 pb-12 border-t border-white/10 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+          
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-[#123354] flex items-center justify-center">
+                <svg viewBox="0 0 100 100" fill="none" class="w-5 h-5">
+                  <path d="M 28 82 L 28 42 A 26 26 0 0 1 80 42 A 26 26 0 0 1 54 68 L 48 68" stroke="#2997E3" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="font-heading font-bold text-xl text-white">Presence</span>
+            </div>
+            <p class="text-xs text-white/60 leading-relaxed">
+              Digital safety, coded language literacy, and anti-harassment navigation for online users in Kenya and East Africa.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-heading font-bold text-sm text-white mb-3">Verified Helplines</h4>
+            <ul class="space-y-2 text-xs text-white/70">
+              <li><a href="tel:1195" class="hover:text-[#FFC53D]">GBV Toll-Free: <strong>1195</strong></a></li>
+              <li><a href="tel:0800720501" class="hover:text-[#FFC53D]">FIDA Kenya: <strong>0800 720 501</strong></a></li>
+              <li><a href="tel:0800722203" class="hover:text-[#FFC53D]">DCI Cybercrime: <strong>0800 722 203</strong></a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-heading font-bold text-sm text-white mb-3">Safety Direct Links</h4>
+            <ul class="space-y-2 text-xs text-white/70">
+              <li><a href="https://stopncii.org" target="_blank" class="hover:text-[#FFC53D]">StopNCII.org (Image Takedowns)</a></li>
+              <li><a href="https://takeitdown.ncmec.org" target="_blank" class="hover:text-[#FFC53D]">Take It Down (Under 18)</a></li>
+              <li><a href="https://kictanet.or.ke" target="_blank" class="hover:text-[#FFC53D]">KICTANet Online Safety</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-heading font-bold text-sm text-white mb-3">Curation & Moderation</h4>
+            <p class="text-xs text-white/60 mb-3">
+              Curators and safety officers can assess community submissions in the Review Queue.
+            </p>
+            <a href="#/admin" class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#FFC53D] hover:underline">
+              <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+              <span>Access Curator Portal</span>
+            </a>
+          </div>
+
         </div>
 
-        <div class="flex items-center gap-4">
-          <a href="#lexicon" class="hover:text-white">Lexicon</a>
-          <a href="#reporting" class="hover:text-white">Reporting</a>
-          <a href="#decoder" class="hover:text-white">Decoder</a>
-          <button onclick="openAdminModal()" class="text-white/40 hover:text-white/80 transition flex items-center gap-1 font-mono text-[11px]">
-            <i data-lucide="lock" class="w-3 h-3"></i>
-            <span>Curator Desk</span>
-          </button>
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
+          <p>© 2025 Presence Africa. Open public resource for human rights and digital safety.</p>
+          <div class="flex items-center gap-4">
+            <a href="#lexicon" class="hover:text-white">Lexicon</a>
+            <a href="#decoder" class="hover:text-white">Decoder</a>
+            <a href="#reporting" class="hover:text-white">Reporting</a>
+            <a href="#/admin" class="hover:text-[#FFC53D]">Admin Login</a>
+          </div>
         </div>
       </div>
     </footer>
 
   </div>
 
-  <!-- ================= 2. ADMIN CURATION PORTAL (PIN: 2540) ================= -->
-  <div id="adminPortalView" class="hidden min-h-screen bg-[#F4F6F9] flex-col">
-    <!-- Admin Portal Header & Pending Suggestions Cards (Anonymous ID, Time, Platform, Nuance) -->
-    <header class="bg-[#123354] text-white px-6 py-4 flex items-center justify-between">
+  <!-- ================= 8. BACK-END ADMIN & REVIEW QUEUE PORTAL ================= -->
+  <div id="adminPortalView" class="hidden min-h-screen bg-[#071626] text-white flex flex-col">
+    
+    <header class="h-16 border-b border-white/10 px-6 flex items-center justify-between bg-[#0B2038]">
       <div class="flex items-center gap-3">
-        <button onclick="exitAdminView()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white">
-          <i data-lucide="arrow-left" class="w-4 h-4"></i>
-        </button>
-        <h2 class="font-heading font-bold text-lg">Curator Assessment Portal</h2>
+        <div class="w-8 h-8 rounded-lg bg-[#F97316] flex items-center justify-center text-white font-bold">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+        </div>
+        <span class="font-heading font-bold text-lg text-white">Presence Curator Console</span>
       </div>
-      <button onclick="exitAdminView()" class="text-xs bg-white text-[#123354] font-bold px-4 py-2 rounded-full">
-        Exit Console
+      <button onclick="exitAdmin()" class="text-xs text-white/70 hover:text-white px-3 py-1.5 rounded-lg border border-white/20 transition cursor-pointer">
+        Back to Public Site
       </button>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 py-8 w-full space-y-6">
-      <div class="flex items-center justify-between">
-        <h3 class="font-heading font-bold text-xl text-[#111417]">Pending Community Submissions</h3>
-        <span id="pendingCountBadge" class="text-xs font-bold px-3 py-1 bg-[#FFF7ED] text-[#EA580C] rounded-full border border-[#F97316]/30"></span>
+    <!-- PIN Authentication Gate -->
+    <div id="adminPinGate" class="flex-1 flex items-center justify-center p-6">
+      <div class="max-w-md w-full bg-[#0B2038] rounded-3xl p-8 border border-white/10 text-center shadow-2xl space-y-5">
+        <div class="w-12 h-12 rounded-full bg-[#123354] text-[#FFC53D] flex items-center justify-center mx-auto">
+          <i data-lucide="lock" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="font-heading font-bold text-2xl text-white">Curator Verification</h2>
+          <p class="text-xs text-white/60 mt-1">Enter your authorization security PIN to access the submission review queue.</p>
+        </div>
+        <form onsubmit="handlePinLogin(event)" class="space-y-4">
+          <input
+            type="password"
+            id="adminPinInput"
+            maxlength="6"
+            placeholder="Enter PIN (e.g. 2540)"
+            class="w-full bg-[#071626] text-center tracking-widest text-lg font-mono text-white p-3.5 rounded-xl border border-white/20 focus:outline-none focus:border-[#FFC53D]"
+          />
+          <div id="pinError" class="hidden text-xs text-[#B0402F] font-bold">Incorrect PIN code. Default is 2540.</div>
+          <button type="submit" class="w-full bg-[#123354] hover:bg-[#1A4570] text-white font-bold py-3.5 rounded-xl text-sm transition btn-lift cursor-pointer shadow-md">
+            Authorize Entry
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Authenticated Admin Console -->
+    <div id="adminConsole" class="hidden flex-1 max-w-7xl w-full mx-auto p-6 space-y-6">
+      
+      <!-- Notifications Toast -->
+      <div id="curatorNotice" class="hidden p-4 rounded-2xl bg-[#E1F6EA] text-[#1FA96B] text-xs font-bold border border-[#1FA96B]/30 flex items-center justify-between">
+        <span id="curatorNoticeText">Notice</span>
+        <button onclick="this.parentElement.classList.add('hidden')" class="text-xs opacity-70 hover:opacity-100">✕</button>
       </div>
 
-      <div id="pendingSuggestionsList" class="space-y-4"></div>
-    </main>
+      <!-- Navigation Tabs -->
+      <div class="flex flex-wrap items-center justify-between gap-4 bg-[#0B2038] p-3 rounded-2xl border border-white/10">
+        <div class="flex items-center gap-2">
+          <button
+            id="tabBtnSuggestions"
+            onclick="switchAdminTab('suggestions')"
+            class="px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 bg-[#F97316] text-white shadow-xs cursor-pointer"
+          >
+            <i data-lucide="inbox" class="w-3.5 h-3.5"></i>
+            <span>Review Queue</span>
+            <span id="pendingBadge" class="bg-white text-[#EA580C] px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
+          </button>
+          
+          <button
+            id="tabBtnLexicon"
+            onclick="switchAdminTab('lexicon')"
+            class="px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 text-white/70 hover:text-white cursor-pointer"
+          >
+            <i data-lucide="book" class="w-3.5 h-3.5"></i>
+            <span>Live Lexicon (<span id="adminLexCount">0</span>)</span>
+          </button>
+
+          <button
+            id="tabBtnAdd"
+            onclick="switchAdminTab('add')"
+            class="px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 text-white/70 hover:text-white cursor-pointer"
+          >
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+            <span>Direct Entry</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="exportSuggestionsJson()" class="text-xs bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg text-white/80 transition flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>Export Submissions JSON</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 1: REVIEW QUEUE -->
+      <div id="adminTabSuggestions" class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-heading font-bold text-xl text-white">Community Suggestion Review Queue</h3>
+            <p class="text-xs text-white/60" id="suggestionsHeaderSub">Assessing user-submitted slang additions.</p>
+          </div>
+        </div>
+        <div id="pendingSuggestionsList" class="space-y-3">
+          <!-- Pending review cards rendered by JS -->
+        </div>
+      </div>
+
+      <!-- TAB 2: LIVE LEXICON MANAGEMENT -->
+      <div id="adminTabLexicon" class="hidden space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-heading font-bold text-xl text-white">Published Live Lexicon</h3>
+          <div class="flex items-center gap-3">
+            <input
+              type="text"
+              id="adminLexiconSearch"
+              oninput="renderAdminTerms()"
+              placeholder="Filter live terms..."
+              class="bg-[#071626] text-xs px-3 py-1.5 rounded-lg border border-white/20 text-white"
+            />
+            <button onclick="resetDefaultLexicon()" class="text-xs text-[#B0402F] hover:underline cursor-pointer">
+              Reset to Defaults
+            </button>
+          </div>
+        </div>
+        <div class="bg-white text-[#111417] rounded-[24px] p-6 max-h-[600px] overflow-y-auto space-y-2" id="adminTermList">
+          <!-- Live terms rendered by JS -->
+        </div>
+      </div>
+
+      <!-- TAB 3: DIRECT MANUAL ENTRY -->
+      <div id="adminTabAdd" class="hidden bg-white text-[#111417] rounded-[28px] p-8 max-w-xl mx-auto shadow-xl">
+        <h3 class="font-heading font-bold text-2xl mb-1">Direct Verified Entry</h3>
+        <p class="text-xs text-[#5B6472] mb-6">Manually publish a verified term without queuing.</p>
+        <form onsubmit="handleAddNewTerm(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold uppercase mb-1">Slang Term</label>
+            <input type="text" id="newTerm" required placeholder="e.g. 'Kumalizwa'" class="w-full bg-[#F4F6F9] p-3 rounded-xl border border-[rgba(17,20,23,0.10)] text-sm focus:outline-none focus:border-[#123354]" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase mb-1">Direct Meaning / Translation</label>
+            <input type="text" id="newTranslation" required placeholder="e.g. 'Being finished off'" class="w-full bg-[#F4F6F9] p-3 rounded-xl border border-[rgba(17,20,23,0.10)] text-sm focus:outline-none focus:border-[#123354]" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase mb-1">Classification Category</label>
+            <select id="newCategory" class="w-full bg-[#F4F6F9] p-3 rounded-xl border border-[rgba(17,20,23,0.10)] text-sm focus:outline-none focus:border-[#123354]">
+              <option>Cyberbullying & Harassment</option>
+              <option>Threats & Incitement to Violence</option>
+              <option>Sexism & Misogyny</option>
+              <option>Sexual Objectification</option>
+              <option>Doxxing & Privacy Violations</option>
+              <option>Silencing & Gaslighting</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase mb-1">Nuance & Harm Context</label>
+            <textarea id="newNuance" rows="3" placeholder="Context on how this phrase is weaponized..." class="w-full bg-[#F4F6F9] p-3 rounded-xl border border-[rgba(17,20,23,0.10)] text-sm focus:outline-none focus:border-[#123354]"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-[#123354] hover:bg-[#0B2038] text-white font-bold py-3.5 rounded-full text-sm transition btn-lift cursor-pointer shadow-md">
+            Publish Directly to Live Lexicon
+          </button>
+        </form>
+      </div>
+
+    </div>
   </div>
 
-  <!-- ================= PIN AUTH MODAL ================= -->
-  <div id="adminAuthModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl text-center space-y-4">
-      <div class="w-12 h-12 rounded-2xl bg-[#E8EEF5] text-[#123354] flex items-center justify-center mx-auto">
-        <i data-lucide="lock" class="w-6 h-6"></i>
+  <!-- ================= 9. MODALS ================= -->
+
+  <!-- Detailed Suggestion Modal -->
+  <div id="suggestAdditionModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-[28px] max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[rgba(17,20,23,0.10)] animate-fade-in">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2 text-[#EA580C] font-bold text-sm">
+          <i data-lucide="plus-circle" class="w-5 h-5"></i>
+          <span>Detailed Slang Suggestion</span>
+        </div>
+        <button onclick="closeModal('suggestAdditionModal')" class="w-8 h-8 rounded-full bg-[#F4F6F9] flex items-center justify-center text-[#5B6472] hover:text-[#111417]">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
       </div>
-      <h3 class="font-heading font-bold text-xl text-[#111417]">Curator Verification</h3>
-      <p class="text-xs text-[#5B6472]">Enter PIN <strong class="font-mono text-[#123354]">2540</strong> to access the community review desk.</p>
-      <input id="adminPinInput" type="password" maxlength="6" placeholder="Enter PIN" class="w-full text-center tracking-widest text-lg font-mono p-3 bg-[#FAFBFD] rounded-xl border border-[rgba(17,20,23,0.15)] focus:outline-none focus:border-[#123354]" />
-      <div class="flex gap-2">
-        <button onclick="closeAdminAuthModal()" class="flex-1 py-2.5 rounded-full text-xs font-bold text-[#5B6472] hover:bg-[#F4F6F9]">Cancel</button>
-        <button onclick="verifyAdminPin()" class="flex-1 py-2.5 rounded-full text-xs font-bold text-white bg-[#123354] hover:bg-[#0B2038]">Unlock</button>
+
+      <p class="text-xs text-[#5B6472] mb-6">
+        Submit full contextual nuances to help our safety researchers catalogue new coded harassment vectors.
+      </p>
+
+      <form onsubmit="handleDetailedSuggestSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Slang Word or Phrase *</label>
+          <input type="text" id="modalSuggestTerm" required placeholder="e.g. 'Kuvutwa wire'" class="w-full bg-[#F4F6F9] text-sm p-3.5 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#F97316]" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Direct Translation / Meaning</label>
+          <input type="text" id="modalSuggestTranslation" placeholder="e.g. 'Having her wires pulled'" class="w-full bg-[#F4F6F9] text-sm p-3.5 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#F97316]" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Category</label>
+            <select id="modalSuggestCategory" class="w-full bg-[#F4F6F9] text-xs p-3 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#F97316]">
+              <option>Cyberbullying & Harassment</option>
+              <option>Threats & Incitement to Violence</option>
+              <option>Sexism & Misogyny</option>
+              <option>Sexual Objectification</option>
+              <option>Doxxing & Privacy Violations</option>
+              <option>Silencing & Gaslighting</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Primary Platform Observed</label>
+            <select id="modalSuggestPlatform" class="w-full bg-[#F4F6F9] text-xs p-3 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#F97316]">
+              <option>TikTok</option>
+              <option>WhatsApp</option>
+              <option>X (Twitter)</option>
+              <option>Instagram</option>
+              <option>Facebook</option>
+              <option>YouTube</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Contextual Nuance & How It Is Used</label>
+          <textarea id="modalSuggestNuance" rows="3" placeholder="Explain the subtle harm, who it targets, or typical usage scenario..." class="w-full bg-[#F4F6F9] text-sm p-3.5 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#F97316]"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-[#F97316] hover:bg-[#EA580C] text-white font-bold py-3.5 rounded-full text-sm transition btn-lift flex items-center justify-center gap-2 cursor-pointer shadow-md">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Submit for Curator Assessment</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Platform Guide Modal -->
+  <div id="reportingModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-[28px] max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[rgba(17,20,23,0.10)] animate-fade-in">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs font-bold text-[#123354] uppercase tracking-wider">Official Takedown Mechanism</span>
+        <button onclick="closeModal('reportingModal')" class="w-8 h-8 rounded-full bg-[#F4F6F9] flex items-center justify-center text-[#5B6472] hover:text-[#111417]">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div id="reportingModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Evidence Studio Modal -->
+  <div id="evidenceModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-[28px] max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-[rgba(17,20,23,0.10)] max-h-[90vh] overflow-y-auto animate-fade-in">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2 text-[#123354] font-bold text-lg">
+          <i data-lucide="file-text" class="w-5 h-5 text-[#FFC53D]"></i>
+          <span>Evidence Studio Dossier Builder</span>
+        </div>
+        <button onclick="closeModal('evidenceModal')" class="w-8 h-8 rounded-full bg-[#F4F6F9] flex items-center justify-center text-[#5B6472] hover:text-[#111417]">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Attached File</label>
+            <div class="relative">
+              <input type="file" id="evidenceFileInput" onchange="handleEvidenceFileSelect(this)" class="hidden" />
+              <label for="evidenceFileInput" class="w-full bg-[#F4F6F9] p-3 rounded-xl border border-dashed border-[#123354]/30 text-xs text-[#5B6472] flex items-center justify-center gap-2 cursor-pointer hover:bg-[#E8EEF5]">
+                <i data-lucide="upload" class="w-4 h-4"></i>
+                <span id="evFileLabel">Attach Screenshot / Video</span>
+              </label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Platform</label>
+            <select id="evPlatform" class="w-full bg-[#F4F6F9] text-sm p-3 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#123354]">
+              <option>X (Twitter)</option>
+              <option>TikTok</option>
+              <option>Instagram</option>
+              <option>WhatsApp</option>
+              <option>Facebook</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#111417] uppercase tracking-wider mb-1">Incident Notes & Message Context</label>
+          <textarea id="evDescription" rows="4" placeholder="Paste the threat message, timestamps, or post link..." class="w-full bg-[#F4F6F9] text-sm p-3 rounded-xl border border-[rgba(17,20,23,0.10)] focus:outline-none focus:border-[#123354]"></textarea>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#E8EEF5] text-xs text-[#123354]">
+          <strong>Legal Grounding:</strong> Formatted for statutory compliance under Kenya Computer Misuse and Cybercrimes Act (CMCA) Sections 27 (Cyber Harassment) & 28 (Cybersquatting/Impersonation).
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button onclick="generateEvidenceDossier()" class="flex-1 bg-[#123354] hover:bg-[#0B2038] text-white cursor-pointer py-3.5 rounded-full text-sm font-bold flex items-center justify-center gap-2 btn-lift shadow-sm">
+            <i data-lucide="download" class="w-4 h-4 text-[#FFC53D]"></i>
+            <span>Generate & Download Dossier (.txt)</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Lucide script initialization & dataset logic (All 70+ terms preloaded) -->
-  <script src="/presence.js"></script>
+  <!-- ================= 10. JAVASCRIPT LOGIC & STATE PERSISTENCE ================= -->
+  <script>
+    const DEFAULT_LEXICON = [
+      { id: '1', number: 1, term: 'Amekula block', directTranslation: 'She has eaten a block', nuance: 'Targeted silencing celebration after harassment.', classification: ['Cyberbullying & Harassment'] },
+      { id: '2', number: 2, term: 'Ataoshwa leo', directTranslation: 'She will be washed today', nuance: 'Coordinated mob attack / harassment announcement.', classification: ['Threats & Incitement to Violence'] },
+      { id: '3', number: 3, term: 'Kuvutwa wire', directTranslation: 'Having her wires pulled', nuance: 'Gaslighting a woman by claiming she is mentally unstable.', classification: ['Cyberbullying & Harassment'] },
+      { id: '4', number: 4, term: 'Leta namba yake', directTranslation: 'Bring her phone number', nuance: 'Doxxing request to initiate private WhatsApp mob harassment.', classification: ['Doxxing & Privacy Violations'] },
+      { id: '5', number: 5, term: 'Tabia za umama', directTranslation: 'Motherly / womanly behavior', nuance: 'Misogynistic slur equating womanhood with pettiness or inferiority.', classification: ['Sexism & Misogyny'] },
+      { id: '6', number: 6, term: 'Ameiva kabisa', directTranslation: 'She is fully ripe', nuance: 'Sexual objectification of women and adolescent girls.', classification: ['Sexual Objectification'] },
+      { id: '7', number: 7, term: 'Kurushwa hewani', directTranslation: 'Being thrown into the air', nuance: 'Leaking private pictures or chats publicly.', classification: ['Doxxing & Privacy Violations'] },
+      { id: '8', number: 8, term: 'Asalimiwe kwa DM', directTranslation: 'Let her be greeted in the DMs', nuance: 'Call for an organized direct-message raid on a woman\'s inbox.', classification: ['Cyberbullying & Harassment'] },
+      { id: '9', number: 9, term: 'Jidishi', directTranslation: 'Dismiss yourself', nuance: 'Hostile misogynistic insult demanding a woman isolate herself.', classification: ['Sexism & Misogyny'] },
+      { id: '10', number: 10, term: 'Dinywa', directTranslation: 'Sexually degraded', nuance: 'Aggressive insult used to reduce women\'s worth to sexual violence.', classification: ['Sexism & Misogyny'] },
+      { id: '11', number: 11, term: 'Kupimwa mafuta', directTranslation: 'Measuring oil levels', nuance: 'Derogatory sexual innuendo in comment sections.', classification: ['Sexual Objectification'] },
+      { id: '12', number: 12, term: 'Kumalizwa', directTranslation: 'Being finished off', nuance: 'Coordinated online reputation assassination campaign.', classification: ['Threats & Incitement to Violence'] },
+      { id: '13', number: 13, term: 'Chuma ya doshi', directTranslation: 'Steel of Doshi', nuance: 'Vulgar sexual innuendo and physical harassment reference.', classification: ['Sexual Objectification'] },
+      { id: '14', number: 14, term: 'Kugongewa', directTranslation: 'To be struck / hit for', nuance: 'Public infidelity shaming used to emasculate or slut-shame.', classification: ['Sexism & Misogyny'] },
+      { id: '15', number: 15, term: 'Umbwa / Mbwa', directTranslation: 'Dog', nuance: 'Severe dehumanization and online humiliation.', classification: ['Cyberbullying & Harassment'] },
+      { id: '16', number: 16, term: 'Malaya', directTranslation: 'Prostitute', nuance: 'Direct misogynistic degradation and sexual policing.', classification: ['Sexism & Misogyny'] },
+      { id: '17', number: 17, term: 'Kuvunjwa mwiko', directTranslation: 'Breaking the cooking stick', nuance: 'Threat of physical gender-based assault.', classification: ['Threats & Incitement to Violence'] },
+      { id: '18', number: 18, term: 'Kutolewa form', directTranslation: 'Being removed from the plan', nuance: 'Threat to cancel, ruin, or banish someone from social circles.', classification: ['Silencing & Gaslighting'] }
+    ];
+
+    let currentLexicon = JSON.parse(localStorage.getItem('presence_custom_lexicon') || 'null') || DEFAULT_LEXICON;
+
+    const SAMPLE_PENDING = [
+      {
+        id: 'sug-1',
+        term: 'Kukula mahindi ya kuchemsha',
+        directTranslation: 'Eating boiled maize in silence',
+        platform: 'TikTok',
+        category: 'Silencing & Gaslighting',
+        nuance: 'Used to mock someone who has been intimidated or forced off social media following targeted mob harassment.',
+        submittedAt: 'Just now',
+        status: 'pending'
+      },
+      {
+        id: 'sug-2',
+        term: 'Kutolewa kwa group',
+        directTranslation: 'Being removed from the inner circle group',
+        platform: 'WhatsApp',
+        category: 'Cyberbullying & Harassment',
+        nuance: 'Veiled social ostracization weaponized after a victim refuses inappropriate advances.',
+        submittedAt: '2 hours ago',
+        status: 'pending'
+      }
+    ];
+
+    let pendingSuggestions = JSON.parse(localStorage.getItem('presence_pending_suggestions') || 'null') || SAMPLE_PENDING;
+
+    let activeAdminTab = 'suggestions';
+
+    const PLATFORM_GUIDES = {
+      tiktok: {
+        title: 'TikTok Rapid Takedown Guide',
+        steps: [
+          'Tap Share icon on video or comment > Select "Report".',
+          'Choose "Harassment and Bullying" or "Hate Speech".',
+          'For doxxing, select "Frauds and Scams" > "Personal Information Exposure".',
+          'Document screenshot with user @handle and timestamp.'
+        ]
+      },
+      whatsapp: {
+        title: 'WhatsApp Harassment Preservation Guide',
+        steps: [
+          'Open Chat > Tap Three Dots / Contact Info > "Export Chat" (without media).',
+          'Tap "Report Contact" and ensure "Block and delete chat" is checked.',
+          'For group doxxing, note group creation link and admin phone numbers.'
+        ]
+      },
+      x: {
+        title: 'X (Twitter) Mob Harassment Guide',
+        steps: [
+          'Click Three Dots (...) on abusive post > "Report post".',
+          'Select "Harassment / Hate Speech / Direct Attack".',
+          'Select multiple posts in the thread to prove coordinated pattern.',
+          'Mute keywords in Settings > Privacy and Safety > Mute and Block.'
+        ]
+      },
+      meta: {
+        title: 'Meta (Instagram & Facebook) Guide',
+        steps: [
+          'Tap (...) on post or direct message > "Report".',
+          'For intimate image blackmail or threats, submit hash via StopNCII.org.',
+          'Lock profile under Privacy Settings to prevent photo downloads.'
+        ]
+      }
+    };
+
+    function checkRoute() {
+      const isAdmin = window.location.hash === '#/admin' || window.location.hash === '#admin' || window.location.pathname === '/admin';
+      if (isAdmin) {
+        document.getElementById('publicSiteView').classList.add('hidden');
+        document.getElementById('adminPortalView').classList.remove('hidden');
+        const auth = sessionStorage.getItem('presence_admin_auth') === 'true';
+        if (auth) {
+          document.getElementById('adminPinGate').classList.add('hidden');
+          document.getElementById('adminConsole').classList.remove('hidden');
+          refreshAdminUI();
+        } else {
+          document.getElementById('adminPinGate').classList.remove('hidden');
+          document.getElementById('adminConsole').classList.add('hidden');
+        }
+      } else {
+        document.getElementById('publicSiteView').classList.remove('hidden');
+        document.getElementById('adminPortalView').classList.add('hidden');
+      }
+    }
+
+    window.addEventListener('hashchange', checkRoute);
+    window.addEventListener('popstate', checkRoute);
+
+    function handlePinLogin(e) {
+      e.preventDefault();
+      const pin = document.getElementById('adminPinInput').value;
+      if (pin === '2540' || pin === '1195') {
+        sessionStorage.setItem('presence_admin_auth', 'true');
+        document.getElementById('adminPinGate').classList.add('hidden');
+        document.getElementById('adminConsole').classList.remove('hidden');
+        refreshAdminUI();
+      } else {
+        document.getElementById('pinError').classList.remove('hidden');
+      }
+    }
+
+    function exitAdmin() {
+      sessionStorage.removeItem('presence_admin_auth');
+      window.location.hash = '';
+      checkRoute();
+    }
+
+    // ================= ADMIN CONSOLE TABS & ACTIONS =================
+
+    function switchAdminTab(tab) {
+      activeAdminTab = tab;
+      const tabSuggestions = document.getElementById('adminTabSuggestions');
+      const tabLexicon = document.getElementById('adminTabLexicon');
+      const tabAdd = document.getElementById('adminTabAdd');
+      
+      const btnSuggestions = document.getElementById('tabBtnSuggestions');
+      const btnLexicon = document.getElementById('tabBtnLexicon');
+      const btnAdd = document.getElementById('tabBtnAdd');
+
+      tabSuggestions.classList.add('hidden');
+      tabLexicon.classList.add('hidden');
+      tabAdd.classList.add('hidden');
+
+      btnSuggestions.className = 'px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 text-white/70 hover:text-white cursor-pointer';
+      btnLexicon.className = 'px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 text-white/70 hover:text-white cursor-pointer';
+      btnAdd.className = 'px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 text-white/70 hover:text-white cursor-pointer';
+
+      if (tab === 'suggestions') {
+        tabSuggestions.classList.remove('hidden');
+        btnSuggestions.className = 'px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 bg-[#F97316] text-white shadow-xs cursor-pointer';
+        renderPendingSuggestions();
+      } else if (tab === 'lexicon') {
+        tabLexicon.classList.remove('hidden');
+        btnLexicon.className = 'px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 bg-[#123354] text-white shadow-xs cursor-pointer';
+        renderAdminTerms();
+      } else if (tab === 'add') {
+        tabAdd.classList.remove('hidden');
+        btnAdd.className = 'px-4 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-2 bg-[#123354] text-white shadow-xs cursor-pointer';
+      }
+      lucide.createIcons();
+    }
+
+    function showCuratorNotice(msg) {
+      const banner = document.getElementById('curatorNotice');
+      const txt = document.getElementById('curatorNoticeText');
+      if (banner && txt) {
+        txt.innerText = msg;
+        banner.classList.remove('hidden');
+        setTimeout(() => {
+          banner.classList.add('hidden');
+        }, 4000);
+      }
+    }
+
+    function refreshAdminUI() {
+      const badge = document.getElementById('pendingBadge');
+      const countSub = document.getElementById('suggestionsHeaderSub');
+      const lexCount = document.getElementById('adminLexCount');
+
+      if (badge) {
+        if (pendingSuggestions.length > 0) {
+          badge.innerText = pendingSuggestions.length;
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
+        }
+      }
+      if (countSub) {
+        countSub.innerText = `${pendingSuggestions.length} submission${pendingSuggestions.length === 1 ? '' : 's'} awaiting review`;
+      }
+      if (lexCount) {
+        lexCount.innerText = currentLexicon.length;
+      }
+
+      renderPendingSuggestions();
+      renderAdminTerms();
+      lucide.createIcons();
+    }
+
+    function renderPendingSuggestions() {
+      const container = document.getElementById('pendingSuggestionsList');
+      if (!container) return;
+
+      if (pendingSuggestions.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-[24px] p-12 text-center border border-[rgba(17,20,23,0.08)] shadow-xs">
+            <div class="w-12 h-12 rounded-full bg-[#E1F6EA] text-[#1FA96B] flex items-center justify-center mx-auto mb-3">
+              <i data-lucide="check" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-[#111417]">All caught up!</h3>
+            <p class="text-xs text-[#5B6472] mt-1 max-w-sm mx-auto">
+              There are currently no pending suggestions from visitors. Any new submissions from the orange box or modal will appear here for assessment.
+            </p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      container.innerHTML = pendingSuggestions.map(sug => `
+        <div class="bg-white rounded-[24px] p-6 border border-[rgba(17,20,23,0.08)] shadow-xs hover:border-[#123354]/25 transition">
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div class="space-y-2 flex-1">
+              <div class="flex items-center flex-wrap gap-2">
+                <h3 class="font-heading font-bold text-xl text-[#111417]">${sug.term}</h3>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#FFF7ED] text-[#EA580C] border border-[#F97316]/30">
+                  ${sug.platform || 'General'}
+                </span>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#E8EEF5] text-[#123354] border border-[#123354]/15">
+                  ${sug.category || 'Harassment'}
+                </span>
+                <span class="text-xs text-[#5B6472] font-mono italic">
+                  "${sug.directTranslation || 'No translation provided'}"
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-[#5B6472] leading-relaxed">
+                ${sug.nuance || 'User did not supply detailed contextual nuance.'}
+              </p>
+              <div class="text-[11px] text-[#5B6472]/70">
+                Submitted: <strong>${sug.submittedAt || 'Recently'}</strong> · ID: <span class="font-mono">${sug.id}</span>
+              </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2 shrink-0 pt-2 md:pt-0">
+              <button
+                onclick="rejectSuggestion('${sug.id}')"
+                class="px-4 py-2 rounded-full text-xs font-bold text-[#B0402F] hover:bg-[#FBEAE7] border border-[#B0402F]/20 transition cursor-pointer"
+              >
+                Dismiss
+              </button>
+              <button
+                onclick="approveSuggestion('${sug.id}')"
+                class="px-5 py-2 rounded-full text-xs font-bold text-white bg-[#1FA96B] hover:bg-[#188856] transition btn-lift flex items-center gap-1.5 cursor-pointer shadow-xs"
+              >
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                <span>Approve & Publish</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function approveSuggestion(id) {
+      const item = pendingSuggestions.find(s => s.id === id);
+      if (!item) return;
+
+      const newLexItem = {
+        id: 'cust-' + Date.now(),
+        number: currentLexicon.length + 1,
+        term: item.term,
+        directTranslation: item.directTranslation || 'Community verified slang',
+        nuance: item.nuance || `Documented from community report on ${item.platform || 'social platforms'}.`,
+        classification: ['Community Addition', item.category || 'Cyberbullying & Harassment']
+      };
+
+      currentLexicon.unshift(newLexItem);
+      localStorage.setItem('presence_custom_lexicon', JSON.stringify(currentLexicon));
+
+      pendingSuggestions = pendingSuggestions.filter(s => s.id !== id);
+      localStorage.setItem('presence_pending_suggestions', JSON.stringify(pendingSuggestions));
+
+      renderLexicon();
+      renderAlphabet();
+      refreshAdminUI();
+      showCuratorNotice(`Approved & Published "${item.term}" to the public Lexicon.`);
+    }
+
+    function rejectSuggestion(id) {
+      const item = pendingSuggestions.find(s => s.id === id);
+      pendingSuggestions = pendingSuggestions.filter(s => s.id !== id);
+      localStorage.setItem('presence_pending_suggestions', JSON.stringify(pendingSuggestions));
+      refreshAdminUI();
+      if (item) {
+        showCuratorNotice(`Dismissed suggestion "${item.term}".`);
+      }
+    }
+
+    function exportSuggestionsJson() {
+      const blob = new Blob([JSON.stringify(pendingSuggestions, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `presence_pending_suggestions_${Date.now()}.json`;
+      a.click();
+    }
+
+    // ================= "SUGGEST AN ADDITION" VISITOR SUBMISSION HANDLERS =================
+
+    function focusSuggestBox() {
+      const input = document.getElementById('quickSuggestInput');
+      if (input) {
+        input.focus();
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function toggleQuickTranslationField() {
+      const container = document.getElementById('inlineTranslationContainer');
+      const label = document.getElementById('toggleTranslationLabel');
+      if (container.classList.contains('hidden')) {
+        container.classList.remove('hidden');
+        label.innerText = '− Hide direct meaning';
+        document.getElementById('quickSuggestTranslation').focus();
+      } else {
+        container.classList.add('hidden');
+        label.innerText = '+ Add direct meaning / translation';
+      }
+    }
+
+    function openSuggestModal() {
+      document.getElementById('suggestAdditionModal').classList.remove('hidden');
+      document.getElementById('modalSuggestTerm').focus();
+    }
+
+    function openSuggestModalWithPrefill() {
+      const quickVal = document.getElementById('quickSuggestInput').value;
+      document.getElementById('modalSuggestTerm').value = quickVal;
+      document.getElementById('suggestAdditionModal').classList.remove('hidden');
+      if (!quickVal) {
+        document.getElementById('modalSuggestTerm').focus();
+      } else {
+        document.getElementById('modalSuggestTranslation').focus();
+      }
+    }
+
+    function handleQuickSuggest(e) {
+      e.preventDefault();
+      const termInput = document.getElementById('quickSuggestInput');
+      const transInput = document.getElementById('quickSuggestTranslation');
+      const term = termInput.value.trim();
+      const trans = transInput ? transInput.value.trim() : '';
+
+      if (!term) return;
+
+      const newSuggestion = {
+        id: 'sug-' + Date.now(),
+        term: term,
+        directTranslation: trans || 'Community suggested coded phrase',
+        platform: 'Web Visitor',
+        category: 'Cyberbullying & Harassment',
+        nuance: 'Reported via Quick Suggestion box for curator safety review.',
+        submittedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        status: 'pending'
+      };
+
+      // Add to review queue
+      pendingSuggestions.unshift(newSuggestion);
+      localStorage.setItem('presence_pending_suggestions', JSON.stringify(pendingSuggestions));
+
+      // Show Success Notice to User
+      const alert = document.getElementById('suggestSuccessAlert');
+      const text = document.getElementById('suggestSuccessText');
+      text.innerText = `Thank you! Your suggestion for "${term}" has been sent to the curation desk for assessment.`;
+      alert.classList.remove('hidden');
+
+      termInput.value = '';
+      if (transInput) transInput.value = '';
+
+      setTimeout(() => {
+        alert.classList.add('hidden');
+      }, 5000);
+    }
+
+    function handleDetailedSuggestSubmit(e) {
+      e.preventDefault();
+      const term = document.getElementById('modalSuggestTerm').value.trim();
+      const trans = document.getElementById('modalSuggestTranslation').value.trim();
+      const nuance = document.getElementById('modalSuggestNuance').value.trim();
+      const category = document.getElementById('modalSuggestCategory').value;
+      const platform = document.getElementById('modalSuggestPlatform').value;
+
+      if (!term) return;
+
+      const newSuggestion = {
+        id: 'sug-' + Date.now(),
+        term: term,
+        directTranslation: trans || 'Community suggested term',
+        platform: platform,
+        category: category,
+        nuance: nuance || `Reported on ${platform}. Slang expression submitted for curator verification.`,
+        submittedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        status: 'pending'
+      };
+
+      pendingSuggestions.unshift(newSuggestion);
+      localStorage.setItem('presence_pending_suggestions', JSON.stringify(pendingSuggestions));
+
+      closeModal('suggestAdditionModal');
+
+      // Show Success Alert
+      const alert = document.getElementById('suggestSuccessAlert');
+      const text = document.getElementById('suggestSuccessText');
+      text.innerText = `Thank you! Your suggestion for "${term}" has been submitted to the curation desk for assessment.`;
+      alert.classList.remove('hidden');
+
+      e.target.reset();
+
+      setTimeout(() => {
+        alert.classList.add('hidden');
+      }, 5000);
+    }
+
+    // ================= LEXICON RENDERING =================
+
+    function getFirstLetter(term) {
+      const clean = term.replace(/^["'‘“«\s]+/, '').trim();
+      return clean ? clean.charAt(0).toUpperCase() : '#';
+    }
+
+    function renderAlphabet() {
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      const activeLetters = new Set(currentLexicon.map(item => getFirstLetter(item.term)));
+      
+      const container = document.getElementById('alphabetContainer');
+      container.innerHTML = alphabet.map(letter => {
+        const hasEntries = activeLetters.has(letter);
+        if (hasEntries) {
+          return `<button onclick="scrollToLetter('${letter}')" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full text-xs sm:text-sm font-bold bg-[#E8EEF5] text-[#123354] hover:bg-[#123354] hover:text-white transition flex items-center justify-center cursor-pointer shrink-0 shadow-2xs">${letter}</button>`;
+        } else {
+          return `<span class="w-8 h-8 sm:w-9 sm:h-9 rounded-full text-xs sm:text-sm font-medium text-[#5B6472]/30 flex items-center justify-center cursor-not-allowed select-none shrink-0">${letter}</span>`;
+        }
+      }).join('');
+    }
+
+    function scrollToLetter(letter) {
+      const el = document.getElementById(`letter-${letter}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function renderLexicon() {
+      const q = (document.getElementById('lexiconSearchInput')?.value || '').toLowerCase().trim();
+      const container = document.getElementById('lexiconGrid');
+      const countEl = document.getElementById('lexiconCount');
+      const clearBtn = document.getElementById('clearSearchBtn');
+
+      if (clearBtn) {
+        if (q) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+      }
+
+      const filtered = currentLexicon.filter(item => {
+        if (!q) return true;
+        return item.term.toLowerCase().includes(q) ||
+               (item.directTranslation && item.directTranslation.toLowerCase().includes(q)) ||
+               (item.nuance && item.nuance.toLowerCase().includes(q)) ||
+               (item.classification && item.classification.some(c => c.toLowerCase().includes(q)));
+      });
+
+      if (countEl) {
+        countEl.innerHTML = `Showing <strong>${filtered.length}</strong> terms`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-12 bg-white rounded-2xl border border-[rgba(17,20,23,0.06)] p-6">
+            <i data-lucide="search-x" class="w-10 h-10 text-[#5B6472] mx-auto mb-2 opacity-40"></i>
+            <h3 class="font-heading font-bold text-lg text-[#111417]">No matching coded terms found</h3>
+            <p class="text-xs text-[#5B6472] mt-1 max-w-sm mx-auto">
+              Did not find what you were looking for? Use the orange box above to suggest an addition to our database.
+            </p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      const groups = {};
+      filtered.forEach(item => {
+        const letter = getFirstLetter(item.term);
+        if (!groups[letter]) groups[letter] = [];
+        groups[letter].push(item);
+      });
+
+      container.innerHTML = Object.keys(groups).sort().map(letter => `
+        <div id="letter-${letter}" class="scroll-mt-36">
+          <div class="flex items-center gap-3 pb-3 border-b-2 border-[#123354]/20 mb-4">
+            <span class="font-heading font-bold text-2xl text-[#123354]">${letter}</span>
+            <span class="text-xs font-semibold text-[#5B6472]">(${groups[letter].length} ${groups[letter].length === 1 ? 'entry' : 'entries'})</span>
+          </div>
+          <div class="bg-white rounded-2xl border border-[rgba(17,20,23,0.08)] overflow-hidden shadow-2xs divide-y divide-[rgba(17,20,23,0.06)]">
+            ${groups[letter].map(item => {
+              const isCommunity = (item.classification && item.classification.includes('Community Addition')) || item.id.startsWith('suggested') || item.id.startsWith('cust');
+              const cat = (item.classification && item.classification[0]) || 'Cyberbullying';
+              return `
+                <div class="p-5 sm:p-6 hover:bg-[#F8FAFC] transition-colors">
+                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                    <div class="flex items-center flex-wrap gap-2.5">
+                      <h3 class="font-heading font-bold text-lg text-[#111417]">${item.term}</h3>
+                      <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#E8EEF5] text-[#123354] border border-[#123354]/15">${cat}</span>
+                      ${isCommunity ? `<span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#FFF7ED] text-[#EA580C] border border-[#F97316]/40">Community Addition</span>` : ''}
+                      <span class="text-xs text-[#5B6472] font-mono italic">"${item.directTranslation}"</span>
+                    </div>
+                    <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                      <button onclick="copyToClipboard('${item.term.replace(/'/g, "\\'")}', this)" class="text-xs text-[#5B6472] hover:text-[#123354] bg-[#F4F6F9] px-2.5 py-1 rounded-full transition flex items-center gap-1 font-medium cursor-pointer">
+                        <span>Copy</span>
+                      </button>
+                      <button onclick="sendToDecoder('${item.term.replace(/'/g, "\\'")}')" class="text-xs text-[#123354] bg-[#F4F6F9] hover:bg-[#E8EEF5] px-2.5 py-1 rounded-full transition flex items-center gap-1 font-semibold cursor-pointer">
+                        <i data-lucide="sparkles" class="w-3 h-3 text-[#FFC53D]"></i>
+                        <span>Decode</span>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="mt-2 text-xs sm:text-sm text-[#5B6472] leading-relaxed">${item.nuance}</p>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function copyToClipboard(text, btn) {
+      navigator.clipboard.writeText(text);
+      const original = btn.innerHTML;
+      btn.innerHTML = '<span class="text-[#1FA96B] font-bold">Copied!</span>';
+      setTimeout(() => {
+        btn.innerHTML = original;
+      }, 1800);
+    }
+
+    function sendToDecoder(term) {
+      document.getElementById('decoderTextInput').value = `Scanned phrase: "${term}"`;
+      document.getElementById('decoder').scrollIntoView({ behavior: 'smooth' });
+      scanDecoder();
+    }
+
+    function setSample(text) {
+      document.getElementById('decoderTextInput').value = text;
+      scanDecoder();
+    }
+
+    function scanDecoder() {
+      const text = document.getElementById('decoderTextInput').value.trim();
+      const res = document.getElementById('decoderResult');
+      if (!text) return;
+
+      const detected = currentLexicon.filter(item => text.toLowerCase().includes(item.term.toLowerCase()));
+
+      res.classList.remove('hidden');
+      if (detected.length > 0) {
+        res.innerHTML = `
+          <div class="flex items-center gap-2 text-sm font-bold text-[#FFC53D] mb-3">
+            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+            <span>${detected.length} Coded Abuse Pattern(s) Identified:</span>
+          </div>
+          <div class="space-y-3">
+            ${detected.map(d => `
+              <div class="p-3 bg-[#071626]/80 rounded-xl border border-white/10">
+                <div class="font-bold text-sm text-white">${d.term} ("${d.directTranslation}")</div>
+                <div class="text-xs text-white/70 mt-1">${d.nuance}</div>
+                <div class="text-[11px] text-[#FFC53D] mt-2 font-mono">Category: ${(d.classification || []).join(', ')}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        res.innerHTML = `
+          <div class="text-xs text-white/80">No standard high-risk Sheng slangs detected in our current database. If this message feels threatening or harmful, you can document it in the Evidence Studio or suggest an addition above.</div>
+        `;
+      }
+      lucide.createIcons();
+    }
+
+    function openReportingModal(platformKey) {
+      const guide = PLATFORM_GUIDES[platformKey];
+      if (!guide) return;
+      document.getElementById('reportingModalContent').innerHTML = `
+        <h3 class="font-heading font-bold text-2xl text-[#111417] mb-4">${guide.title}</h3>
+        <ol class="space-y-3 list-decimal list-inside text-sm text-[#5B6472]">
+          ${guide.steps.map(s => `<li class="leading-relaxed"><span class="text-[#111417]">${s}</span></li>`).join('')}
+        </ol>
+      `;
+      document.getElementById('reportingModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function openEvidenceModal() {
+      document.getElementById('evidenceModal').classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    let attachedEvidenceFileName = 'None';
+
+    function handleEvidenceFileSelect(input) {
+      if (input.files && input.files[0]) {
+        attachedEvidenceFileName = input.files[0].name;
+        document.getElementById('evFileLabel').innerText = 'Attached: ' + attachedEvidenceFileName;
+        document.getElementById('evFileLabel').classList.add('text-[#123354]', 'font-semibold');
+      }
+    }
+
+    function generateEvidenceDossier() {
+      const platform = document.getElementById('evPlatform').value;
+      const desc = document.getElementById('evDescription').value || 'No details provided';
+      const date = new Date().toISOString();
+
+      const dossier = `=== PRESENCE DIGITAL SAFETY INCIDENT DOSSIER ===\nTimestamp (UTC): ${date}\nPlatform: ${platform}\nAttached Screenshot / Video Evidence: ${attachedEvidenceFileName}\nStatutory Reference: Kenya Computer Misuse and Cybercrimes Act (CMCA) Sec 27 & 28\n\nIncident Notes:\n${desc}\n\nPreserved via Presence Africa Digital Safety Platform.`;
+      
+      const blob = new Blob([dossier], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Incident_Dossier_${Date.now()}.txt`;
+      a.click();
+    }
+
+    function renderAdminTerms() {
+      const list = document.getElementById('adminTermList');
+      if (!list) return;
+      const q = (document.getElementById('adminLexiconSearch')?.value || '').toLowerCase().trim();
+
+      const filtered = currentLexicon.filter(item => {
+        if (!q) return true;
+        return item.term.toLowerCase().includes(q) ||
+               (item.directTranslation && item.directTranslation.toLowerCase().includes(q));
+      });
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="text-xs text-[#5B6472] p-4 text-center">No terms match search.</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(item => `
+        <div class="p-3.5 bg-[#F4F6F9] rounded-xl border border-[rgba(17,20,23,0.06)] flex items-center justify-between gap-3">
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sm text-[#111417]">${item.term}</span>
+              <span class="text-[10px] px-2 py-0.2 rounded bg-white text-[#123354] font-medium border border-[rgba(17,20,23,0.08)]">
+                ${(item.classification && item.classification[0]) || 'Lexicon'}
+              </span>
+            </div>
+            <div class="text-xs text-[#5B6472] mt-0.5">"${item.directTranslation}"</div>
+          </div>
+          <button onclick="deleteAdminTerm('${item.id}')" class="text-[#B0402F] text-xs font-semibold px-3 py-1.5 hover:bg-[#FBEAE7] rounded-lg transition cursor-pointer">
+            Delete
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function handleAddNewTerm(e) {
+      e.preventDefault();
+      const term = document.getElementById('newTerm').value.trim();
+      const trans = document.getElementById('newTranslation').value.trim();
+      const cat = document.getElementById('newCategory').value;
+      const nuance = document.getElementById('newNuance').value.trim();
+
+      const newItem = {
+        id: 'cust-' + Date.now(),
+        number: currentLexicon.length + 1,
+        term,
+        directTranslation: trans,
+        nuance: nuance || 'Documented slang expression',
+        classification: [cat]
+      };
+
+      currentLexicon.unshift(newItem);
+      localStorage.setItem('presence_custom_lexicon', JSON.stringify(currentLexicon));
+      renderAdminTerms();
+      renderLexicon();
+      renderAlphabet();
+      refreshAdminUI();
+      e.target.reset();
+      showCuratorNotice(`Added "${term}" to the live lexicon.`);
+    }
+
+    function deleteAdminTerm(id) {
+      const item = currentLexicon.find(i => i.id === id);
+      currentLexicon = currentLexicon.filter(i => i.id !== id);
+      localStorage.setItem('presence_custom_lexicon', JSON.stringify(currentLexicon));
+      renderAdminTerms();
+      renderLexicon();
+      renderAlphabet();
+      refreshAdminUI();
+      if (item) {
+        showCuratorNotice(`Removed "${item.term}" from the lexicon.`);
+      }
+    }
+
+    function resetDefaultLexicon() {
+      if (confirm('Reset to official default lexicon?')) {
+        currentLexicon = DEFAULT_LEXICON;
+        localStorage.removeItem('presence_custom_lexicon');
+        renderAdminTerms();
+        renderLexicon();
+        renderAlphabet();
+        refreshAdminUI();
+        showCuratorNotice('Lexicon reset to official default list.');
+      }
+    }
+
+    function exportLexiconJson() {
+      const blob = new Blob([JSON.stringify(currentLexicon, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `presence_lexicon_${Date.now()}.json`;
+      a.click();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAlphabet();
+      renderLexicon();
+      checkRoute();
+      lucide.createIcons();
+    });
+  </script>
 </body>
 </html>
